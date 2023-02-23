@@ -1,0 +1,11 @@
+D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\ReneUtilesMultimedia.dll
+D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\ReneUtilesMultimedia.pdb
+D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\ReneUtiles.dll
+D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\System.Data.SQLite.dll
+D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\ReneUtiles.pdb
+D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\System.Data.SQLite.pdb
+D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\System.Data.SQLite.xml
+D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\obj\Debug\ReneUtilesMultimedia.csprojResolveAssemblyReference.cache
+D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\obj\Debug\ReneUtilesMultimedia.dll
+D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\obj\Debug\ReneUtilesMultimedia.pdb
+D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\delimon.win32.io.dll
