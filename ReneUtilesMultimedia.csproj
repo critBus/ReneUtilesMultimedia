@@ -125,13 +125,13 @@
     <Compile Include="ReneUtiles\Clases\Multimedia\Series\SeriesPersona\ConstantesSeriesPersona.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ReneUtiles\ReneUtiles\ReneUtiles.csproj">
+    <Folder Include="ReneUtiles\Clases\Multimedia\Series\Procesadores\Ignorar\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReneUtilesCsharp\ReneUtiles\ReneUtiles.csproj">
       <Project>{ae5bc0d2-5527-4252-9691-3cd82db1f71f}</Project>
       <Name>ReneUtiles</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ReneUtiles\Clases\Multimedia\Series\Procesadores\Ignorar\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

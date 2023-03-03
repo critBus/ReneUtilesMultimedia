@@ -571,21 +571,35 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
             {
                 Group gICnp = this.pr.re.getGrupoIdentificadorCantidadCapitulo(mx);
 
+                getD().setIdentificacion_ConjuntoDeCapitulos_Etiqueta(
+                    indiceDeRepresentacionStr_etiqueta: gICnp.Index
+                    , representacionStr_etiqueta: gICnp.ToString()
+                    );
 
-                getD().IndiceIdentificadorCapitulos = gICnp.Index;
-                getD().IdentificadorCapitulosStr = gICnp.ToString();
+
+                //getD().IndiceIdentificadorCapitulos = gICnp.Index;
+                //getD().IdentificadorCapitulosStr = gICnp.ToString();
 
                 if (buscarDatosUnion(d, mx))
                 {
-                    getD().CantidadDeCapitulosQueContiene = getD().CapituloFinal - getD().CapituloInicial;
-                    //getD().CantidadDeCapitulosQueContieneStr=
+                    //getD().CantidadDeCapitulosQueContiene = getD().CapituloFinal - getD().CapituloInicial;
+                    
                 }
                 else
                 {
+                    
+
                     Group gCnp = this.pr.re.getGrupoNumeroCantidadCapitulo(mx);
-                    getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;
-                    //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);
-                    getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
+
+                    getD().setIdentificacion_ConjuntoDeCapitulos_Numero(
+                    indiceDeRepresentacionStr_numeroCantidad: gCnp.Index
+                    , representacionStr_numeroCantidad: gCnp.ToString()
+                    );
+
+
+                    //getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;
+                    
+                    //getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
                 }
 
                 capturar_Temporada_NT(mx);
@@ -607,15 +621,23 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                 , this.pr.re.Re_Temporada_NT_NC_CapitulosPlu.SSfReS
             ));
 
-            alEncontrarPatronContenedor(mx, () =>
+            alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
             {
                 Group gICnp = this.pr.re.getGrupoIdentificadorCantidadCapitulo(mx);
                 Group gCnp = this.pr.re.getGrupoNumeroCantidadCapitulo(mx);
-                getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;
-                getD().IndiceIdentificadorCapitulos = gICnp.Index;
-                getD().IdentificadorCapitulosStr = gICnp.ToString();
-                //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);
-                getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
+
+                getD().setIdentificacion_ConjuntoDeCapitulos_EtiquetaNumero(
+                    indiceDeRepresentacionStr_etiqueta: gICnp.Index
+                    , representacionStr_etiqueta: gICnp.ToString()
+                    , indiceDeRepresentacionStr_numeroCantidad: gCnp.Index
+                    , representacionStr_numeroCantidad: gCnp.ToString()
+                    );
+
+                //getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;
+                //getD().IndiceIdentificadorCapitulos = gICnp.Index;
+                //getD().IdentificadorCapitulosStr = gICnp.ToString();
+                
+                //getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
                 capturar_Temporada_NT(mx);
             });
 
@@ -628,29 +650,37 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 
             //  (Miniserie) [5 UnionN Cap.] FDT   aqui    Miniserie es el identificador de temporada plq es un contenedor
             mx = this.pr.re.Re_Temporada_N_Union_N_Repetir_CapitulosPlu.SSfReS.Match(nombre, I0);
-            alEncontrarPatronContenedor(mx, () =>
+            alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
             {
                 Group gICnp = this.pr.re.getGrupoIdentificadorCantidadCapitulo(mx);
                 //!!!!
 
-                getD().IndiceIdentificadorCapitulos = gICnp.Index;
-                getD().IdentificadorCapitulosStr = gICnp.ToString();
+                //getD().IndiceIdentificadorCapitulos = gICnp.Index;
+                //getD().IdentificadorCapitulosStr = gICnp.ToString();
+                getD().setIdentificacion_ConjuntoDeCapitulos_Etiqueta(
+                    indiceDeRepresentacionStr_etiqueta: gICnp.Index
+                    , representacionStr_etiqueta: gICnp.ToString()
+                    );
 
                 if (buscarDatosUnion(d, mx))
                 {
-                    getD().CantidadDeCapitulosQueContiene = getD().CapituloFinal - getD().CapituloInicial;
+                    //getD().CantidadDeCapitulosQueContiene = getD().CapituloFinal - getD().CapituloInicial;
                 }
                 else
                 {
                     Group gCnp = this.pr.re.getGrupoNumeroCantidadCapitulo(mx);
-                    getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;
-                    //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);
-                    getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
+                    getD().setIdentificacion_ConjuntoDeCapitulos_Numero(
+                    indiceDeRepresentacionStr_numeroCantidad: gCnp.Index
+                    , representacionStr_numeroCantidad: gCnp.ToString()
+                    );
+                    //getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;
+
+                    //getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
                 }
+                capturar_Temporada_NT(mx);
+                //Group gIT = this.pr.re.getGrupoIdentificadorTemporada(mx);
 
-                Group gIT = this.pr.re.getGrupoIdentificadorTemporada(mx);
-
-                getD().IndiceIdentificadorTemporada = gIT.Index;
+                //getD().IndiceIdentificadorTemporada = gIT.Index;
 
 
 
@@ -661,22 +691,27 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
             }
             //  (Miniserie) [5 Cap.] FDT   aqui    Miniserie es el identificador de temporada plq es un contenedor
             mx = this.pr.re.Re_Temporada_NC_CapitulosPlu.SSfReS.Match(nombre, I0);
-            alEncontrarPatronContenedor(mx, () =>
+            alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
             {
                 Group gICnp = this.pr.re.getGrupoIdentificadorCantidadCapitulo(mx);
                 Group gCnp = this.pr.re.getGrupoNumeroCantidadCapitulo(mx);
 
-                getD().IndiceIdentificadorCapitulos = gICnp.Index;
-                getD().IdentificadorCapitulosStr = gICnp.ToString();
-                getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;
-                //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);
-                getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
+                //getD().IndiceIdentificadorCapitulos = gICnp.Index;
+                //getD().IdentificadorCapitulosStr = gICnp.ToString();
+                //getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;
+                //getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
+                getD().setIdentificacion_ConjuntoDeCapitulos_EtiquetaNumero(
+                    indiceDeRepresentacionStr_etiqueta: gICnp.Index
+                    , representacionStr_etiqueta: gICnp.ToString()
+                    , indiceDeRepresentacionStr_numeroCantidad: gCnp.Index
+                    , representacionStr_numeroCantidad: gCnp.ToString()
+                    );
 
 
                 Group gIT = this.pr.re.getGrupoIdentificadorTemporada(mx);
-
-                getD().IndiceIdentificadorTemporada = gIT.Index;
-                getD().IdentificadorTemporadaStr = gIT.ToString();
+                capturar_Temporada_NT(mx);
+                //getD().IndiceIdentificadorTemporada = gIT.Index;
+                //getD().IdentificadorTemporadaStr = gIT.ToString();
 
             });
             if (getD() != null)
@@ -694,25 +729,38 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 
                 //Seitokai Yakuindomo 2nd Season 13 - 1 OVA
                 mx = this.pr.re.Re_NT_IT_Temporada_NC_N_Ova.SSfReS.Match(nombre, I0);
-                alEncontrarPatronContenedor(mx, () =>
+                alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
                 {
                     capturar_Temporada_NT(mx);
 
                     Group gCnp = this.pr.re.getGrupoNumeroCantidadCapitulo(mx);
-
-                    getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;//dm.IndiceNumeroFueraDeM + mm.Index;
-                                                                                     //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);//dm.Numero;
-                    getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
+                    getD().setIdentificacion_ConjuntoDeCapitulos_Numero(
+                    indiceDeRepresentacionStr_numeroCantidad: gCnp.Index
+                    , representacionStr_numeroCantidad: gCnp.ToString()
+                    );
+                    //getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;//dm.IndiceNumeroFueraDeM + mm.Index;
+                    //                                                                 //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);//dm.Numero;
+                    //getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
 
                     Group GNova = this.pr.re.getGrupoNumeroOva(mx);
-                    //getD().CantidadDeOvasQueContiene = inT_Grp(GNova);
-                    getD().IndiceDeNumeroCantidadDeOvasQueContiene = GNova.Index;
-                    getD().CantidadDeOvasQueContieneStr = GNova.ToString();
+                    
+                    //getD().IndiceDeNumeroCantidadDeOvasQueContiene = GNova.Index;
+                    //getD().CantidadDeOvasQueContieneStr = GNova.ToString();
 
+                    
 
                     Group GIova = this.pr.re.getGrupoIdentificadorOva(mx);
-                    getD().IndiceIdentificadorDeOVA = GIova.Index;
-                    getD().IdentificadorDeOVAStr = GIova.ToString();
+
+                    getD().setIdentificacion_ConjuntoDeCapitulos_Ova_EtiquetaOvaNumero(
+                        indiceDeRepresentacionStr_etiquetaOva: GIova.Index
+                        ,representacionStr_etiquetaOva: GIova.ToString()
+                    , indiceDeRepresentacionStr_numeroCantidad: GNova.Index
+                    , representacionStr_numeroCantidad: GNova.ToString()
+                    );
+
+
+                    //getD().IndiceIdentificadorDeOVA = GIova.Index;
+                    //getD().IdentificadorDeOVAStr = GIova.ToString();
                 });
                 if (getD() != null)
                 {

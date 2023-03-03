@@ -883,6 +883,114 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             this.IdentificadorCapituloOva = di;
         }
 
+        public void setIdentificacion_ConjuntoDeCapitulos_Etiqueta(
+            int indiceDeRepresentacionStr_etiqueta
+            , string representacionStr_etiqueta
+            
+            )
+        {
+            DatosDeIdentificacionColectivaCapitulos dc = new DatosDeIdentificacionColectivaCapitulos();
+            if (this.contendorDeCapitulos != null)
+            {
+                dc = this.contendorDeCapitulos;
+            }
+            dc.etiqueta = new IdentificacionEnStr(
+                indiceDeRepresentacionStr: indiceDeRepresentacionStr_etiqueta
+                , representacionStr: representacionStr_etiqueta
+                );
+            if (dc.datosDelContenedor == null)
+            {
+                dc.datosDelContenedor = new DatosDeContenedor();
+            }
+
+            
+            dc.esDeEsteTipo = true;
+
+            this.contendorDeCapitulos = dc;
+        }
+
+
+        public void setIdentificacion_ConjuntoDeCapitulos_Numero(
+            
+             int indiceDeRepresentacionStr_numeroCantidad
+            , string representacionStr_numeroCantidad
+            )
+        {
+            DatosDeIdentificacionColectivaCapitulos dc = new DatosDeIdentificacionColectivaCapitulos();
+            if (this.contendorDeCapitulos != null)
+            {
+                dc = this.contendorDeCapitulos;
+            }
+            
+            if (dc.datosDelContenedor == null)
+            {
+                dc.datosDelContenedor = new DatosDeContenedor();
+            }
+
+            dc.datosDelContenedor.numeroCantidad = new IdentificacionNumericaEnStr(
+                indiceDeRepresentacionStr: indiceDeRepresentacionStr_numeroCantidad
+                , representacionStr: representacionStr_numeroCantidad
+                );
+            dc.esDeEsteTipo = true;
+
+            this.contendorDeCapitulos = dc;
+        }
+
+        public void setIdentificacion_ConjuntoDeCapitulos_Ova_Numero(
+            
+             int indiceDeRepresentacionStr_numeroCantidad
+            , string representacionStr_numeroCantidad
+            )
+        {
+            DatosDeIdentificacionColectivaCapitulosOva dc = new DatosDeIdentificacionColectivaCapitulosOva();
+            if (this.contendorDeOvas != null)
+            {
+                dc = this.contendorDeOvas;
+            }
+            
+            if (dc.datosDelContenedor == null)
+            {
+                dc.datosDelContenedor = new DatosDeContenedor();
+            }
+
+            dc.datosDelContenedor.numeroCantidad = new IdentificacionNumericaEnStr(
+                indiceDeRepresentacionStr: indiceDeRepresentacionStr_numeroCantidad
+                , representacionStr: representacionStr_numeroCantidad
+                );
+            dc.esDeEsteTipo = true;
+
+            this.contendorDeOvas = dc;
+        }
+
+        public void setIdentificacion_ConjuntoDeCapitulos_Ova_EtiquetaOvaNumero(
+            int indiceDeRepresentacionStr_etiquetaOva
+            , string representacionStr_etiquetaOva
+            , int indiceDeRepresentacionStr_numeroCantidad
+            , string representacionStr_numeroCantidad
+            )
+        {
+            DatosDeIdentificacionColectivaCapitulosOva dc = new DatosDeIdentificacionColectivaCapitulosOva();
+            if (this.contendorDeOvas != null)
+            {
+                dc = this.contendorDeOvas;
+            }
+            dc.etiquetaOva = new IdentificacionEnStr(
+                indiceDeRepresentacionStr: indiceDeRepresentacionStr_etiquetaOva
+                , representacionStr: representacionStr_etiquetaOva
+                );
+            if (dc.datosDelContenedor == null)
+            {
+                dc.datosDelContenedor = new DatosDeContenedor();
+            }
+
+            dc.datosDelContenedor.numeroCantidad = new IdentificacionNumericaEnStr(
+                indiceDeRepresentacionStr: indiceDeRepresentacionStr_numeroCantidad
+                , representacionStr: representacionStr_numeroCantidad
+                );
+            dc.esDeEsteTipo = true;
+
+            this.contendorDeOvas = dc;
+        }
         public void setIdentificacion_ConjuntoDeCapitulos_EtiquetaNumero(
             int indiceDeRepresentacionStr_etiqueta
             , string representacionStr_etiqueta
