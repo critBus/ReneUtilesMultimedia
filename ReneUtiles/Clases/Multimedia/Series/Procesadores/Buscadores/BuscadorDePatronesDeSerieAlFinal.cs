@@ -768,18 +768,27 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                 }
                 //Hyouka [22+1]
                 mx = this.pr.re.Re_Cor_Nc_Mas_Nova_Cor.SSfReS.Match(nombre, I0);
-                alEncontrarPatronContenedor(mx, () =>
+                alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
                 {
                     Group gCnp = this.pr.re.getGrupoNumeroCantidadCapitulo(mx);
-
-                    getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;//dm.IndiceNumeroFueraDeM + mm.Index;
-                                                                                     //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);//dm.Numero;
-                    getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
+                    getD().setIdentificacion_ConjuntoDeCapitulos_Numero(
+                       indiceDeRepresentacionStr_numeroCantidad: gCnp.Index
+                       , representacionStr_numeroCantidad: gCnp.ToString()
+                       );
+                    //getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;//dm.IndiceNumeroFueraDeM + mm.Index;
+                    //                                                                 //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);//dm.Numero;
+                    //getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
 
                     Group GNova = this.pr.re.getGrupoNumeroOva(mx);
                     //getD().CantidadDeOvasQueContiene = inT_Grp(GNova);
-                    getD().IndiceDeNumeroCantidadDeOvasQueContiene = GNova.Index;
-                    getD().CantidadDeOvasQueContieneStr = GNova.ToString();
+                    //getD().IndiceDeNumeroCantidadDeOvasQueContiene = GNova.Index;
+                    //getD().CantidadDeOvasQueContieneStr = GNova.ToString();
+
+                    getD().setIdentificacion_ConjuntoDeCapitulos_Ova_Numero(
+                        
+                     indiceDeRepresentacionStr_numeroCantidad: GNova.Index
+                    , representacionStr_numeroCantidad: GNova.ToString()
+                    );
                 });
                 if (getD() != null)
                 {
@@ -794,7 +803,8 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 
                 //Accused [Temp]  [1 -2] 
                 mx = this.pr.re.Re_NT_IT_Temporada_NC_N_Ova.SSfReS.Match(nombre, I0);
-
+                throw new Exception("hay que crearlo patron: NombreSerie [Temp]  [1 -2] ");
+                //usar setIdentificacion_ConjuntoDeTemporadas_Etiqueta_InicialFinal
             }//fin si no es un archivo o un video
 
             //2nd-season-1

@@ -1149,5 +1149,46 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 && this.contendorTemporada.datosDelContenedor.numerosIndividuales != null
                 && !this.contendorTemporada.datosDelContenedor.numerosIndividuales.isEmpty();
         }
+
+
+        public void setIdentificacion_ConjuntoDeTemporadas_Etiqueta_InicialFinal(
+            int indiceDeRepresentacionStr_etiqueta
+            , string representacionStr_etiqueta
+            ,int indiceDeRepresentacionStr_inicial
+            , string representacionStr_inicial
+            , int indiceDeRepresentacionStr_final
+            , string representacionStr_final)
+        {
+            DatosDeIdentificacionColectiva dc = new DatosDeIdentificacionColectiva();
+            if (this.contendorTemporada != null)
+            {
+                dc = this.contendorTemporada;
+            }
+            dc.etiqueta = new IdentificacionEnStr(
+                indiceDeRepresentacionStr: indiceDeRepresentacionStr_etiqueta
+                , representacionStr: representacionStr_etiqueta
+                );
+            if (dc.datosDelContenedor == null)
+            {
+                dc.datosDelContenedor = new DatosDeContenedor();
+            }
+            
+            dc.datosDelContenedor.numerosIndividuales = new ConjuntoDeIdentificacionesNumericas();
+            dc.datosDelContenedor.numerosIndividuales.add(
+                new IdentificacionNumericaEnStr(
+                    indiceDeRepresentacionStr: indiceDeRepresentacionStr_inicial
+                , representacionStr: representacionStr_inicial
+                )
+                );
+            dc.datosDelContenedor.numerosIndividuales.add(
+                new IdentificacionNumericaEnStr(
+                    indiceDeRepresentacionStr: indiceDeRepresentacionStr_final
+                , representacionStr: representacionStr_final
+                )
+                );
+            dc.esDeEsteTipo = true;
+            this.contendorTemporada = dc;
+        }
+
     }
 }
