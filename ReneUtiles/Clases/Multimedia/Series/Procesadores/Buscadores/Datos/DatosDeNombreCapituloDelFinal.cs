@@ -49,7 +49,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             int menor = -1;
             List<int> li = new List<int>();
             DatosDeIdentificacionIndividual[] D = {
-                idenificadorTemporada,identificadorCapitulo,identificadorCapituloOva
+                identificadorTemporada,identificadorCapitulo,identificadorCapituloOva
             };
             foreach (DatosDeIdentificacionIndividual d in D)
             {
@@ -75,7 +75,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                     )
                 {
                     if (d.datosDelContenedor != null
-                    && d.datosDelContenedor.esDeEsteTipo
+                    && d.esDeEsteTipo//d.datosDelContenedor.esDeEsteTipo
                    )
                     {
                         if (!d.datosDelContenedor.numerosIndividuales.isEmpty())
@@ -160,7 +160,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             {
                 List<int> li = new List<int>();
                 DatosDeIdentificacionIndividual[] D = {
-                idenificadorTemporada,identificadorCapitulo,identificadorCapituloOva
+                identificadorTemporada,identificadorCapitulo,identificadorCapituloOva
             };
                 foreach (DatosDeIdentificacionIndividual d in D)
                 {
@@ -181,7 +181,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                     )
                     {
                         if (d.datosDelContenedor != null
-                        && d.datosDelContenedor.esDeEsteTipo
+                        && d.esDeEsteTipo//d.datosDelContenedor.esDeEsteTipo
                        )
                         {
                             if (!d.datosDelContenedor.numerosIndividuales.isEmpty())

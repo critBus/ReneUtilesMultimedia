@@ -93,7 +93,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Representaciones
 		public int getCantidadDeCapitulosDeContenedorDeTemporada(){
 			int cantidad=-1;
 			foreach (DatosDeFuente d in this.datosDefuentes) {
-				int c=d.getCantidadDeCapitulosDeContenedorDeTemporada();
+				int c=d.getCantidadDeCapitulos();
 				if(c!=-1&&c>cantidad){
 					cantidad=c;
 				}

@@ -93,10 +93,15 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 				if (dd == null) {
 					dd = new DatosDeNombreCapituloDelPrincipio();
 				}
-				dd.CapituloStr = nombre;
-				//dd.Capitulo = numeroDeSerie;
-				dd.IndiceNumeroCapitulo = 0;
-				dd.IndiceDeInicioDespuesDeLosNumeros = numeroDeSerie.ToString().Length;
+				//dd.CapituloStr = nombre;
+				//dd.IndiceNumeroCapitulo = 0;
+
+                dd.setIdentificacion_Capitulo_Numero(
+                                indiceDeRepresentacionStr: 0
+                                , representacionStr: nombre
+                                );
+
+                dd.IndiceDeInicioDespuesDeLosNumeros = numeroDeSerie.ToString().Length;
 				dd.EsSoloNumeros = true;
 				
 				return dd;
@@ -167,8 +172,8 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 							Group gNC = this.pr.re.getGrupoNumeroCapitulo(mx);
 							CaptureCollection cl = gNC.Captures;
 							Capture cN = cl[0];
-							int capitulo = d.Temporada;
-							int indiceInicialCapitulo=d.IndiceNumeroTemporada;
+                            int capitulo = d.getTemporada(); //d.Temporada;
+                            int indiceInicialCapitulo = d.getIndiceTemporada();//d.IndiceNumeroTemporada;
 							int indiceAcontinuacion = cN.Index;
 							DatosDeIgnorarNumero ignorar = getEs_IgnorarNumeroDelanteDe(
 								numeroFinal: capitulo
@@ -176,12 +181,15 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 								,indiceAContinuacion: indiceAcontinuacion);
 							if (ignorar == null
 							    && (!pr.estaDentroDeFecha(cN))) {
-								getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
-								getD().CapituloStr = getD().TemporadaStr;
+
+                                getD().cambiarDe_NumeroTemporada_A_NumeroCapitulo();
+
+        //                        getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
+								//getD().CapituloStr = getD().TemporadaStr;
 						
 							
-								getD().IndiceNumeroTemporada = -1;
-								getD().Temporada = -1;
+								//getD().IndiceNumeroTemporada = -1;
+								//getD().Temporada = -1;
 								getD().IndiceDeInicioDespuesDeLosNumeros = indiceAcontinuacion;
 							} else {
 								d = null;
@@ -205,26 +213,30 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 				, this.pr.re.Re_SNE_N_Union_N_Repetir.ReInicialS
 					));
 					alEncontrarPatron(mx, () => {
-						Group gNt = this.pr.re.getGrupoNumeroTemporada(mx);
-						getD().IndiceNumeroTemporada = gNt.Index;
-						//getD().Temporada = inT_Grp(gNt);
-						getD().TemporadaStr = gNt.ToString();
-						if (esIgnorarNumeroDetrasDe(
-							getD().Temporada
-							, getD().IndiceNumeroTemporada)) {
-							d = null;
+                        //Group gNt = this.pr.re.getGrupoNumeroTemporada(mx);
+                        //getD().IndiceNumeroTemporada = gNt.Index;
+                        //getD().TemporadaStr = gNt.ToString();
+                        capturar_Temporada_NT(mx);
+
+                        //if (esIgnorarNumeroDetrasDe(
+                        //	getD().Temporada
+                        //	, getD().IndiceNumeroTemporada)) {
+                        if (esIgnorarNumeroDetrasDe(getD().IdenificadorTemporada
+                            ))
+                        {
+                            d = null;
 						
 						} else {
 							if (!buscarUnionAlPrincipio()
 							    && !capturar_Capitulo_AlFinal(mx)) {
-								getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
-								getD().CapituloStr = getD().TemporadaStr;
+                                getD().cambiarDe_NumeroTemporada_A_NumeroCapitulo();
+        //                        getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
+								//getD().CapituloStr = getD().TemporadaStr;
 						
 							
-								getD().IndiceNumeroTemporada = -1;
-								getD().Temporada = -1;
-//								Group gNC =this.pr.re.getGrupoNumeroCapitulo();
-//								Capture cN=gNC.Captures[0];
+								//getD().IndiceNumeroTemporada = -1;
+								//getD().Temporada = -1;
+//								
 								Group gIC = this.pr.re.getGrupoIdentificadorCapitulo(mx);
 								
 								getD().IndiceDeInicioDespuesDeLosNumeros = gIC.Index;
@@ -250,24 +262,27 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 				, this.pr.re.Re_SNxEN.ReInicialS
 					));
 					alEncontrarPatron(mx, () => {
-						Group gNt = this.pr.re.getGrupoNumeroTemporada(mx);
-						getD().IndiceNumeroTemporada = gNt.Index;
-						//getD().Temporada = inT_Grp(gNt);
-						getD().TemporadaStr = gNt.ToString();
-						if (esIgnorarNumeroDetrasDe(
-							getD().Temporada, getD().IndiceNumeroTemporada)) {
-							d = null;
+                        //Group gNt = this.pr.re.getGrupoNumeroTemporada(mx);
+                        //getD().IndiceNumeroTemporada = gNt.Index;
+                        //getD().TemporadaStr = gNt.ToString();
+                        capturar_Temporada_NT(mx);
+
+                        //                 if (esIgnorarNumeroDetrasDe(
+                        //getD().Temporada, getD().IndiceNumeroTemporada)) {
+                        if (esIgnorarNumeroDetrasDe(getD().IdenificadorTemporada))
+                        {
+                            d = null;
 						
 						} else {
 							if (!capturar_Capitulo_AlFinal(mx)) {
-								getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
-								//getD().Capitulo = getD().Temporada;
-								getD().CapituloStr = getD().TemporadaStr;
-							
-								getD().IndiceNumeroTemporada = -1;
-								getD().Temporada = -1;
-						
-								Group gIC = this.pr.re.getGrupoIdentificadorCapitulo(mx);
+                                getD().cambiarDe_NumeroTemporada_A_NumeroCapitulo();
+                                //getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
+                                //getD().CapituloStr = getD().TemporadaStr;
+
+                                //getD().IndiceNumeroTemporada = -1;
+                                //getD().Temporada = -1;
+
+                                Group gIC = this.pr.re.getGrupoIdentificadorCapitulo(mx);
 								
 								getD().IndiceDeInicioDespuesDeLosNumeros = gIC.Index;
 							} else {
@@ -287,25 +302,29 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 						capturar_Temporada_NT(mx);
 						if (!buscarUnionAlPrincipio()) {
 							if (!capturar_Capitulo_AlFinal(mx)) {
-							
-								int capitulo = d.Temporada;
-								int indiceInicialCapitulo=d.IndiceNumeroTemporada;
-								int indiceAcontinuacion = d.IndiceIdentificadorTemporada;
-								DatosDeIgnorarNumero ignorar = getEs_IgnorarNumeroDelanteDe(
+
+                                int capitulo = getD().getTemporada();//d.Temporada;
+                                int indiceInicialCapitulo = getD().getIndiceTemporada();//d.IndiceNumeroTemporada;
+                                int indiceAcontinuacion = getD().getIndiceEtiquetaTemporada();// d.IndiceIdentificadorTemporada;
+
+                                DatosDeIgnorarNumero ignorar = getEs_IgnorarNumeroDelanteDe(
 									numeroFinal:capitulo
 									,indiceInicialNumero:indiceInicialCapitulo
 									,indiceAContinuacion: indiceAcontinuacion);
 								if (ignorar == null
-								    && (!pr.estaDentroDeFecha(d.IndiceNumeroTemporada))) {
-									getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
-									getD().CapituloStr = getD().TemporadaStr;
-						
-							
-									getD().IndiceNumeroTemporada = -1;
-									getD().Temporada = -1;
-									getD().IndiceIdentificadorTemporada = -1;
-									getD().IdentificadorTemporadaStr = "";
-									getD().IndiceDeInicioDespuesDeLosNumeros = indiceAcontinuacion;
+                                    //&& (!pr.estaDentroDeFecha(d.IndiceNumeroTemporada))) {
+                                    && (!pr.estaDentroDeFecha(getD().IdenificadorTemporada.identificacionNumerica)))
+                                {
+                                    getD().cambiarDe_NumeroTemporada_A_NumeroCapitulo();
+                                    //                           getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
+                                    //getD().CapituloStr = getD().TemporadaStr;
+
+
+                                    //getD().IndiceNumeroTemporada = -1;
+                                    //getD().Temporada = -1;
+                                    //getD().IndiceIdentificadorTemporada = -1;
+                                    //getD().IdentificadorTemporadaStr = "";
+                                    getD().IndiceDeInicioDespuesDeLosNumeros = indiceAcontinuacion;
 								} else {
 									d = null;
 								}   	
@@ -323,25 +342,31 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 					alEncontrarPatron(mx, () => {
 						capturar_Temporada_NT(mx);
 						if (!capturar_Capitulo_AlFinal(mx)) {
-							
-							int capitulo = d.Temporada;
-							int indiceInicialCapitulo=d.IndiceNumeroTemporada;
-							int indiceAcontinuacion = d.IndiceIdentificadorTemporada;
-							DatosDeIgnorarNumero ignorar = getEs_IgnorarNumeroDelanteDe(
+
+                            int capitulo = getD().getTemporada();//d.Temporada;
+                            int indiceInicialCapitulo = getD().getIndiceTemporada();//d.IndiceNumeroTemporada;
+                            int indiceAcontinuacion = getD().getIndiceEtiquetaTemporada();// d.IndiceIdentificadorTemporada;
+
+                            DatosDeIgnorarNumero ignorar = getEs_IgnorarNumeroDelanteDe(
 								numeroFinal:capitulo
 								,indiceInicialNumero:indiceInicialCapitulo
 								,indiceAContinuacion: indiceAcontinuacion);
 							if (ignorar == null
-							    && (!pr.estaDentroDeFecha(d.IndiceNumeroTemporada))) {
-								getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
-								getD().CapituloStr = getD().TemporadaStr;
-						
-							
-								getD().IndiceNumeroTemporada = -1;
-								getD().Temporada = -1;
-								getD().IndiceIdentificadorTemporada = -1;
-								getD().IdentificadorTemporadaStr = "";
-								getD().IndiceDeInicioDespuesDeLosNumeros = indiceAcontinuacion;
+                                //&& (!pr.estaDentroDeFecha(d.IndiceNumeroTemporada))) {
+                                && (!pr.estaDentroDeFecha(d.IdenificadorTemporada.identificacionNumerica)))
+                            {
+                                //                        getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
+                                //getD().CapituloStr = getD().TemporadaStr;
+
+
+                                //getD().IndiceNumeroTemporada = -1;
+                                //getD().Temporada = -1;
+                                //getD().IndiceIdentificadorTemporada = -1;
+                                //getD().IdentificadorTemporadaStr = "";
+
+                                getD().cambiarDe_NumeroTemporada_A_NumeroCapitulo();
+
+                                getD().IndiceDeInicioDespuesDeLosNumeros = indiceAcontinuacion;
 							} else {
 								d = null;
 							}   	

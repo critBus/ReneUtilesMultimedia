@@ -228,6 +228,10 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 
             return rectificarD(d);
         }
+        public bool esIgnorarNumeroDetrasDe(DatosDeIdentificacionIndividual n) {
+            return esIgnorarNumeroDetrasDe(n.identificacionNumerica.Numero
+                ,n.identificacionNumerica.IndiceDeRepresentacionStr);
+        }
         public bool esIgnorarNumeroDetrasDe(int numero, int indiceInicialDelNumero)
         {//_SinComprarAño
             if (esAñoModerno(numero))
@@ -498,24 +502,13 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 
 
 
-        //union
-
-        public bool buscarDatosUnion(DatosDeNombreCapitulo dd, Match mm, int iNumeroInicial = 0, Action<Capture, int> alDescartarUltimoNumero = null)
-        {//alDescartarUltimoNumero  (Capture #, indiceAContinuacionDespuesDeLosSaltos)=>{}
-         //DatosDeBuscarConjunto
-         //Group gU =getRe().getGrupoUnion(mm);
-            Group gC = getRe().getGrupoNumeroCapitulo(mm);
+        private bool buscarUnion(DatosDeNombreCapitulo dd, Match mm, int iNumeroInicial , Action<Capture, int> alDescartarUltimoNumero 
+            ,Func<Match, Group> getGC
+            ,Action<int,string,int,string> alCapturar
+            ) {
+            Group gC = getGC(mm);
             CaptureCollection cl = gC.Captures;
-            //			int numero=inT_Grp(gU);
-            //			int indiceEnNombreDelPrimerNumero=gC.Captures[0].Index;
 
-            //DatosDeBuscarConjunto d = new DatosDeBuscarConjunto();
-            //d.EsConjunto = false;
-            //d.EncontroPatron = false;
-            //d.NumeroInicial = inT_Cap(cl[iNumeroInicial]);//inT_Grp(gU);
-
-
-            //d.IndiceNumeroInicial = cl[iNumeroInicial].Index;//2387
 
 
             int indiceEnListaDeUltimo = cl.Count - 1;
@@ -589,27 +582,134 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                     && (!getPr().estaDentroDeFecha(cl[i]))
                     && (!getPr().estaDentroDeAleatoriedad(cl[i].Index)))
                 {
-                    //d.EncontroPatron = true;
-                    //d.EsConjunto = true;
 
-                    dd.setIdentificacion_ConjuntoDeCapitulos_InicialFinal(
-                        indiceDeRepresentacionStr_inicial: cl[iNumeroInicial].Index
-                        , representacionStr_inicial: cl[iNumeroInicial].ToString()
-                        , indiceDeRepresentacionStr_final: cl[indiceEnListaDeUltimo].Index
-                        , representacionStr_final: ultimoNumeroStr
-                        );
+                    alCapturar(cl[iNumeroInicial].Index, cl[iNumeroInicial].ToString(), cl[indiceEnListaDeUltimo].Index, ultimoNumeroStr);
+                    //dd.setIdentificacion_ConjuntoDeCapitulos_InicialFinal(
+                    //    indiceDeRepresentacionStr_inicial: cl[iNumeroInicial].Index
+                    //    , representacionStr_inicial: cl[iNumeroInicial].ToString()
+                    //    , indiceDeRepresentacionStr_final: cl[indiceEnListaDeUltimo].Index
+                    //    , representacionStr_final: ultimoNumeroStr
+                    //    );
 
-                    //               dd.EsConjuntoDeCapitulos = true;
-                    //dd.CapituloInicialStr = cl[iNumeroInicial].ToString();
-                    //dd.IndiceNumeroCapituloInicial = cl[iNumeroInicial].Index;
-                    //dd.CapituloFinalStr = ultimoNumeroStr;
-                    //dd.IndiceNumeroCapituloFinal = cl[indiceEnListaDeUltimo].Index;
 
-                    //return d;
                     return true;
                 }
             }
             return false;
+
+        }
+
+
+        public bool buscarDatosConjuntoTemporadas(DatosDeNombreCapitulo dd, Match mm, int iNumeroInicial = 0, Action<Capture, int> alDescartarUltimoNumero = null)
+        {//alDescartarUltimoNumero  (Capture #, indiceAContinuacionDespuesDeLosSaltos)=>{}
+
+            return buscarUnion(
+                dd,mm, iNumeroInicial, alDescartarUltimoNumero
+                ,getGC:getRe().getGrupoNumeroTemporada 
+                ,alCapturar:dd.setIdentificacion_ConjuntoDeTemporadas_InicialFinal
+                );
+
+
+        }
+
+        public bool buscarDatosUnion(DatosDeNombreCapitulo dd, Match mm, int iNumeroInicial = 0, Action<Capture, int> alDescartarUltimoNumero = null)
+        {
+            return buscarUnion(
+                dd, mm, iNumeroInicial, alDescartarUltimoNumero
+                , getGC: getRe().getGrupoNumeroCapitulo
+                , alCapturar: dd.setIdentificacion_ConjuntoDeCapitulos_InicialFinal
+                );
+
+
+            
+            //Group gC = getRe().getGrupoNumeroCapitulo(mm);
+            //CaptureCollection cl = gC.Captures;
+            
+
+            //int indiceEnListaDeUltimo = cl.Count - 1;
+            //int ultimoNumero = inT_Cap(cl[indiceEnListaDeUltimo]);
+            //string ultimoNumeroStr = cl[indiceEnListaDeUltimo].ToString();
+            //int indiceAContinuacion = mm.Index + mm.Length;//cl[indiceEnListaDeUltimo].Index+cl[indiceEnListaDeUltimo].Value.Length;
+
+            //string separador = null;
+            //bool esContinuidad = getRe().getGrupoContinuidad(mm).Success;
+
+
+            //string numeroAnteriorStr = "";
+            ////compruebo que tiene la misma separacion 
+            ////y que los numeros esten en orden ascendente
+            //for (int i = iNumeroInicial + 1; i <= indiceEnListaDeUltimo; i++)
+            //{
+            //    int indiceNumeroAnterior = i - 1;
+            //    Capture cAnterio = cl[indiceNumeroAnterior];
+            //    Capture cActual = cl[i];
+            //    int indiceFinAnteriorN = cAnterio.Index + cActual.Length;//(cActual.Value.Length)
+            //    int indiceInicioActualN = cActual.Index;
+            //    int numeroAnterior = inT_Cap(cAnterio);
+            //    numeroAnteriorStr = cAnterio.ToString();
+            //    int numeroActual = inT_Cap(cActual);
+            //    string separadorActual = subs(nombre, indiceFinAnteriorN, indiceInicioActualN);
+
+            //    if (numeroAnterior > numeroActual
+            //        || ((separador == null) ? false : separador != separadorActual)
+            //        || (esContinuidad && numeroAnterior + 1 != numeroActual))
+            //    {
+            //        indiceEnListaDeUltimo = indiceNumeroAnterior;
+            //        ultimoNumero = numeroAnterior;
+            //        ultimoNumeroStr = numeroAnteriorStr;
+            //        indiceAContinuacion = cActual.Index;
+            //        if (alDescartarUltimoNumero != null)
+            //        {
+            //            alDescartarUltimoNumero(cAnterio, indiceAContinuacion);
+            //        }
+            //        break;
+            //    }
+            //    if (separador == null)
+            //    {
+            //        separador = separadorActual;
+            //    }
+
+
+
+            //}
+
+            ////voy comprobando que el ultimo numero no alla que ignorarlo
+            ////siempre que me queden al menos dos numeros para que sea una union
+            //for (int i = indiceEnListaDeUltimo; i > iNumeroInicial; i--)
+            //{
+            //    if (i != indiceEnListaDeUltimo)
+            //    {
+            //        indiceAContinuacion = cl[i + 1].Index;
+            //        ultimoNumero = inT_Cap(cl[i]);
+            //        ultimoNumeroStr = cl[i].ToString();
+            //        indiceEnListaDeUltimo = i;
+            //        if (alDescartarUltimoNumero != null)
+            //        {
+            //            alDescartarUltimoNumero(cl[i], indiceAContinuacion);
+            //        }
+            //    }
+
+            //    DatosDeIgnorarNumero ignorar = getEs_IgnorarNumeroDelanteDe(
+            //                                       numeroFinal: ultimoNumero
+            //        , indiceInicialNumero: cl[indiceEnListaDeUltimo].Index
+            //        , indiceAContinuacion: indiceAContinuacion);
+            //    if (ignorar == null
+            //        && (!getPr().estaDentroDeFecha(cl[i]))
+            //        && (!getPr().estaDentroDeAleatoriedad(cl[i].Index)))
+            //    {
+                   
+            //        dd.setIdentificacion_ConjuntoDeCapitulos_InicialFinal(
+            //            indiceDeRepresentacionStr_inicial: cl[iNumeroInicial].Index
+            //            , representacionStr_inicial: cl[iNumeroInicial].ToString()
+            //            , indiceDeRepresentacionStr_final: cl[indiceEnListaDeUltimo].Index
+            //            , representacionStr_final: ultimoNumeroStr
+            //            );
+
+                    
+            //        return true;
+            //    }
+            //}
+            //return false;
 
 
         }

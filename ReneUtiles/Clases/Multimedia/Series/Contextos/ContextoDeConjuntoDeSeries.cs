@@ -68,6 +68,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Contextos
             //HAY_CONTENEDORES_TEMPORADAS,
             HAY_CONTENEDORES_CAPITULOS_MISMA_TEMPORADA,
             HAY_CONTENEDORES_CAPITULOS_MISMA_SERIE,
+            HAY_CONTENEDORES_TEMPORADAS_MISMA_SERIE,
             SON_SOLO_NOMBRES_DE_SERIES,
 			NOMBRES_SIN_MOVER_NUMERO_ADELANTE_SEGURO
 		}
@@ -529,7 +530,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Contextos
 		
 		}
 
-        //HAY_CONTENEDORES_CAPITULOS_MISMA_SERIE
+        
         public void agregarPropiedadesAContextoHAY_CONTENEDORES_CAPITULOS_MISMA_TEMPORADA()
         {
             add_caracteristicaDeLosCapitulosAnalizados(
@@ -539,6 +540,13 @@ namespace ReneUtiles.Clases.Multimedia.Series.Contextos
         {
             add_caracteristicaDeLosCapitulosAnalizados(
                 ContextoDeConjuntoDeSeries.CaracteristicaCapitulos.HAY_CONTENEDORES_CAPITULOS_MISMA_SERIE);
+        }
+
+        public void agregarPropiedadesAContextoHAY_CONTENEDORES_TEMPORADAS_MISMA_SERIE()
+        {
+            add_caracteristicaDeLosCapitulosAnalizados(
+                ContextoDeConjuntoDeSeries.CaracteristicaCapitulos.HAY_CONTENEDORES_TEMPORADAS_MISMA_SERIE
+                , ContextoDeConjuntoDeSeries.CaracteristicaCapitulos.HAY_CONTENEDORES_CAPITULOS_MISMA_SERIE);
         }
         //public void agregarPropiedadesAContextoHAY_CONTENEDORES_TEMPORADAS()
         //{

@@ -223,7 +223,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Recorredores
 						} else {
 							cs = new CapituloDeSerie(te);
 						}
-						cs.NumeroDeCapitulo = dn.getCapitulo();
+						cs.NumeroDeCapitulo = dn.getCapituloInicial();
 						cr = cs;
 					}
 					//ConjuntoDeFuentes cf = new ConjuntoDeFuentes();

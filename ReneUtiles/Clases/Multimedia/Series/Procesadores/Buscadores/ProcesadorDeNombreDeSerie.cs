@@ -28,6 +28,7 @@ using ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos;
 //using System.IO;
 using Delimon.Win32.IO;
 using ReneUtiles.Clases.ExprecionesRegulares;
+using ReneUtiles.Clases.ExprecionesRegulares.IdentificacionesNumericas;
 
 namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 {
@@ -222,7 +223,12 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 		{
 			return estaDentroDeFecha(cn.Index);
 		}
-		public bool estaDentroDeFecha(int indice)
+        //IdentificacionNumericaEnStr
+        public bool estaDentroDeFecha(IdentificacionNumericaEnStr cn)
+        {
+            return estaDentroDeFecha(cn.IndiceDeRepresentacionStr);
+        }
+        public bool estaDentroDeFecha(int indice)
 		{
 			HistoriarDeBusqueda h = this.historialDeBusqueda;
 			List<BuscadorDeFechasEnNombre> lb = h.getBusquedasFechasEnNombre();

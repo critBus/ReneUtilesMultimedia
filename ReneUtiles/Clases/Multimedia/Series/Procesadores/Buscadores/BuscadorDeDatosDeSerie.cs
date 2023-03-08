@@ -131,7 +131,8 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 
 
         }
-        protected void capturar_Temporada_NT(Match mm)
+
+        protected void capturar_Temporada_Etiqueta(Match mm)
         {
             Group gIT = this.pr.re.getGrupoIdentificadorTemporada(mm);
             if (gIT.Success)
@@ -144,7 +145,22 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                 //d.IndiceIdentificadorTemporada = gIT.Index;
                 //d.IdentificadorTemporadaStr = gIT.ToString();
             }
+        }
 
+        protected void capturar_Temporada_NT(Match mm)
+        {
+            //Group gIT = this.pr.re.getGrupoIdentificadorTemporada(mm);
+            //if (gIT.Success)
+            //{
+            //    d.setIdentificacionTemporada_Etiqueta(
+            //         indiceDeRepresentacionStr: gIT.Index
+            //        , representacionStr: gIT.ToString()
+            //        );
+
+            //    //d.IndiceIdentificadorTemporada = gIT.Index;
+            //    //d.IdentificadorTemporadaStr = gIT.ToString();
+            //}
+            capturar_Temporada_Etiqueta(mm);
 
             Group gNT = this.pr.re.getGrupoNumeroTemporada(mm);
             if (gNT.Success)
@@ -169,6 +185,12 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
         {
             d.setEsContendedorDe_Capitulos_DeMismaSerie(true);
             getCtxCn().agregarPropiedadesAContextoHAY_CONTENEDORES_CAPITULOS_MISMA_SERIE();
+        }
+
+        protected void agregarContenedorDe_Temporadas_MismaSerie()
+        {
+            d.setEsContendedorDe_Temporadas(true);
+            getCtxCn().agregarPropiedadesAContextoHAY_CONTENEDORES_TEMPORADAS_MISMA_SERIE();
         }
         //protected void agregarContenedor()
         //{

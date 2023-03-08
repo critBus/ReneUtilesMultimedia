@@ -93,6 +93,23 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
             return (DatosDeNombreCapituloDelFinal)this.d;
         }
 
+
+        private DatosDeNombreCapituloDelFinal alEncontrarPatronContenedor_DeTemporadas_MismaSerie(Match mm, Action accion)
+        {
+            return alEncontrarPatron(mm, () =>
+            {
+                accion();
+                if (getD() != null)
+                {
+
+                    agregarContenedorDe_Temporadas_MismaSerie();
+                       
+                }
+
+            });
+        }
+
+
         private DatosDeNombreCapituloDelFinal alEncontrarPatronContenedor_DeCapitulos_MismaSerie(Match mm, Action accion)
         {
             return alEncontrarPatron(mm, () =>
@@ -803,7 +820,21 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 
                 //Accused [Temp]  [1 -2] 
                 mx = this.pr.re.Re_NT_IT_Temporada_NC_N_Ova.SSfReS.Match(nombre, I0);
-                throw new Exception("hay que crearlo patron: NombreSerie [Temp]  [1 -2] ");
+                alEncontrarPatronContenedor_DeCapitulos_MismaSerie(mx, () =>
+                {
+                    if (!buscarDatosConjuntoTemporadas(d, mx))
+                    {
+                        capturar_Temporada_NT(mx);
+                    }
+                    else {
+                        capturar_Temporada_Etiqueta(mx);
+                    }
+                });
+                if (getD() != null)
+                {
+                    return getD();
+                }
+                //throw new Exception("hay que crearlo patron: NombreSerie [Temp]  [1 -2] ");
                 //usar setIdentificacion_ConjuntoDeTemporadas_Etiqueta_InicialFinal
             }//fin si no es un archivo o un video
 
@@ -816,7 +847,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                 {
                     if (getCtx().EsCarpeta && !getCtx().EsVideo)
                     {
-                        agregarContenedor();
+                        agregarContenedorDe_CapitulosDe_MismaTemporada();
                     }
                 }
             });
@@ -830,18 +861,26 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                 // [12-Full]
                 //[27 cap]
                 mx = this.pr.re.Re_Cor_Nc_Full_Cor.SSfReS.Match(nombre, I0);
-                alEncontrarPatronContenedor(mx, () =>
+                alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
                 {
                     Group gCnp = this.pr.re.getGrupoNumeroCantidadCapitulo(mx);
 
-                    getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;//dm.IndiceNumeroFueraDeM + mm.Index;
-                                                                                     //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);//dm.Numero;
-                    getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
+                    //getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;//dm.IndiceNumeroFueraDeM + mm.Index;
+                    //                                                                 //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);//dm.Numero;
+                    //getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
 
                     Group gICnp = this.pr.re.getGrupoIdentificadorCantidadCapitulo(mx);
 
-                    getD().IndiceIdentificadorCapitulos = gICnp.Index;
-                    getD().IdentificadorCapitulosStr = gICnp.ToString();
+                    //getD().IndiceIdentificadorCapitulos = gICnp.Index;
+                    //getD().IdentificadorCapitulosStr = gICnp.ToString();
+
+
+                    getD().setIdentificacion_ConjuntoDeCapitulos_EtiquetaNumero(
+                         indiceDeRepresentacionStr_etiqueta: gICnp.Index
+                        , representacionStr_etiqueta: gICnp.ToString()
+                        , indiceDeRepresentacionStr_numeroCantidad: gCnp.Index
+                        , representacionStr_numeroCantidad: gCnp.ToString()
+                        );
                 });
                 if (getD() != null)
                 {
@@ -850,13 +889,17 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 
                 // [12]
                 mx = this.pr.re.Re_Cor_Nc_Cor.SSfReS.Match(nombre, I0);
-                alEncontrarPatronContenedor(mx, () =>
+                alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
                 {
                     Group gCnp = this.pr.re.getGrupoNumeroCantidadCapitulo(mx);
 
-                    getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;//dm.IndiceNumeroFueraDeM + mm.Index;
-                                                                                     //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);//dm.Numero;
-                    getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
+                    //getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;//dm.IndiceNumeroFueraDeM + mm.Index;
+                    //                                                                 //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);//dm.Numero;
+                    //getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
+                    getD().setIdentificacion_ConjuntoDeCapitulos_Numero(
+                    indiceDeRepresentacionStr_numeroCantidad: gCnp.Index
+                    , representacionStr_numeroCantidad: gCnp.ToString()
+                    );
                 });
 
                 if (getD() != null)
@@ -866,7 +909,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 
                 //[1 TEMP]
                 mx = this.pr.re.Re_Cor_NT_Temp_Cor.SSfReS.Match(nombre, I0);
-                alEncontrarPatronContenedor(mx, () =>
+                alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
                 {
                     capturar_Temporada_NT(mx);
                 });
@@ -939,13 +982,19 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
             ));
             alEncontrarPatron(mx, () =>
             {
-                Group gNt = this.pr.re.getGrupoNumeroTemporada(mx);
-                getD().IndiceNumeroTemporada = gNt.Index;
-                //getD().Temporada = inT_Grp(gNt);
-                getD().TemporadaStr = gNt.ToString();
-                if (esIgnorarNumeroDetrasDe(getD().Temporada
-                                            , getD().IndiceNumeroTemporada)
-                    || (pr.estaDentroDeFecha(gNt))
+                //Group gNt = this.pr.re.getGrupoNumeroTemporada(mx);
+                //getD().IndiceNumeroTemporada = gNt.Index;
+                
+                //getD().TemporadaStr = gNt.ToString();
+
+                capturar_Temporada_NT(mx);
+
+                //if (esIgnorarNumeroDetrasDe(getD().Temporada
+                //                            , getD().IndiceNumeroTemporada)
+                //    || (pr.estaDentroDeFecha(gNt))
+                //   )
+                if (esIgnorarNumeroDetrasDe(getD().IdenificadorTemporada)
+                    || (pr.estaDentroDeFecha(getD().IdenificadorTemporada.identificacionNumerica))
                    )
                 {
                     d = null;
@@ -955,13 +1004,13 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                 {
                     if (!buscarDatosUnion(d, mx) && !capturar_Capitulo_AlFinal(mx))
                     {
-                        getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
-                        //getD().Capitulo = getD().Temporada;
-                        getD().CapituloStr = getD().TemporadaStr;
+                        getD().cambiarDe_NumeroTemporada_A_NumeroCapitulo();
+                        //getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
+                        //getD().CapituloStr = getD().TemporadaStr;
 
 
-                        getD().IndiceNumeroTemporada = -1;
-                        getD().Temporada = -1;
+                        //getD().IndiceNumeroTemporada = -1;
+                        //getD().Temporada = -1;
 
 
                     }
@@ -995,13 +1044,16 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
             mx = getMatchCoincidente(arreglos);
             alEncontrarPatron(mx, () =>
             {
-                Group gNt = this.pr.re.getGrupoNumeroTemporada(mx);
-                getD().IndiceNumeroTemporada = gNt.Index;
-                //getD().Temporada = inT_Grp(gNt);
-                getD().TemporadaStr = gNt.ToString();
-                if (esIgnorarNumeroDetrasDe(getD().Temporada
-                                            , getD().IndiceNumeroTemporada)
-                   || (pr.estaDentroDeFecha(gNt))
+                //Group gNt = this.pr.re.getGrupoNumeroTemporada(mx);
+                //getD().IndiceNumeroTemporada = gNt.Index;
+
+                //getD().TemporadaStr = gNt.ToString();
+                capturar_Temporada_NT(mx);
+                //if (esIgnorarNumeroDetrasDe(getD().Temporada
+                //                            , getD().IndiceNumeroTemporada)
+                //   || (pr.estaDentroDeFecha(gNt))
+                   if (esIgnorarNumeroDetrasDe(getD().IdenificadorTemporada)
+                   || (pr.estaDentroDeFecha(getD().IdenificadorTemporada.identificacionNumerica))
                    )
                 {
                     d = null;
@@ -1011,13 +1063,12 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                 {
                     if (!capturar_Capitulo_AlFinal(mx))
                     {
-                        getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
-                        //getD().Capitulo = getD().Temporada;
-                        getD().CapituloStr = getD().TemporadaStr;
+                        //getD().IndiceNumeroCapitulo = getD().IndiceNumeroTemporada;
+                        //getD().CapituloStr = getD().TemporadaStr;
 
-                        getD().IndiceNumeroTemporada = -1;
-                        getD().Temporada = -1;
-
+                        //getD().IndiceNumeroTemporada = -1;
+                        //getD().Temporada = -1;
+                        getD().cambiarDe_NumeroTemporada_A_NumeroCapitulo();
 
                     }
                     else
@@ -1065,7 +1116,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
             //usar patronTemporada_NT
 
             mx = this.pr.re.Re_Temporada_NT.SSfReS.Match(nombre, I0);
-            alEncontrarPatronContenedor(mx, () =>
+            alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
             {
                 if (capturar_Temporada_NT_alFinal(mx))
                 {
@@ -1087,7 +1138,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 
             //usar patronNT_IT_Temporada  
             mx = this.pr.re.Re_NT_IT_Temporada.SSfReS.Match(nombre, I0);
-            alEncontrarPatronContenedor(mx, () =>
+            alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
             {
                 if (capturar_NT_Temporada_alPrincipio(mx))
                 {
@@ -1119,7 +1170,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                 , this.pr.re.Re_SN.InicialSReSFinal
 
                 ));
-                alEncontrarPatronContenedor(mx, () => capturar_Temporada_NT(mx));
+                alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () => capturar_Temporada_NT(mx));
                 if (getD() != null)
                 {
                     return getD();
@@ -1134,54 +1185,61 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                 , this.pr.re.Re_NC0_NCi_final.SSfReS
                 ));
                 mx = this.pr.re.Re_NC0_NCi_final.SSfReS.Match(nombre, I0);
-                alEncontrarPatronContenedor(mx, () =>
+                alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
                 {
-                    Group gNC = this.pr.re.getGrupoNumeroCapitulo(mx);
-                    CaptureCollection lc = gNC.Captures;
-                    getD().EsConjuntoDeCapitulos = true;
-                    //getD().CapituloInicial = inT_Cap(lc[0]);
-                    getD().CapituloInicialStr = lc[0].ToString();
-                    getD().IndiceNumeroCapituloInicial = lc[0].Index;
-                    //getD().CapituloFinal = inT_Cap(lc[1]);
-                    getD().CapituloFinalStr = lc[1].ToString();
-                    getD().IndiceNumeroCapituloFinal = lc[1].Index;
-                    if (getD().CapituloInicial < getD().CapituloFinal)
+                    if (buscarDatosUnion(d, mx))
                     {
-                        getD().CantidadDeCapitulosQueContiene = getD().CapituloFinal - getD().CapituloInicial;
-                        Group gIT = this.pr.re.getGrupoIdentificadorTemporada(mx);
-                        getD().IndiceIdentificadorTemporada = gIT.Index;
-                        getD().IdentificadorTemporadaStr = gIT.ToString();
-
-                        Group gNT = this.pr.re.getGrupoNumeroTemporada(mx);
-                        if (gNT.Success)
-                        {
-                            int temporada = inT_Grp(gNT);
-                            int indiceNumeroTemporada = gNT.Index;
-                            if (esIgnorarNumeroDetrasDe(temporada,
-                                                        indiceNumeroTemporada)
-                               || (pr.estaDentroDeFecha(gNT))
-                               )
-                            {
-                                getD().Temporada = 1;
-                            }
-                            else
-                            {
-                                getD().IndiceNumeroTemporada = indiceNumeroTemporada;
-                                //getD().Temporada = temporada;
-                                getD().TemporadaStr = gNT.ToString();
-                            }
-
-                        }
-                        else
-                        {
-                            getD().Temporada = 1;
-                        }
-
+                        capturar_Temporada_NT(mx);
                     }
-                    else
-                    {
+                    else {
                         d = null;
                     }
+
+                    //Group gNC = this.pr.re.getGrupoNumeroCapitulo(mx);
+                    //CaptureCollection lc = gNC.Captures;
+                    //getD().EsConjuntoDeCapitulos = true;
+                    //getD().CapituloInicialStr = lc[0].ToString();
+                    //getD().IndiceNumeroCapituloInicial = lc[0].Index;
+                    //getD().CapituloFinalStr = lc[1].ToString();
+                    //getD().IndiceNumeroCapituloFinal = lc[1].Index;
+
+                    //if (getD().CapituloInicial < getD().CapituloFinal)
+                    //{
+                    //    getD().CantidadDeCapitulosQueContiene = getD().CapituloFinal - getD().CapituloInicial;
+                    //    Group gIT = this.pr.re.getGrupoIdentificadorTemporada(mx);
+                    //    getD().IndiceIdentificadorTemporada = gIT.Index;
+                    //    getD().IdentificadorTemporadaStr = gIT.ToString();
+
+                    //    Group gNT = this.pr.re.getGrupoNumeroTemporada(mx);
+                    //    if (gNT.Success)
+                    //    {
+                    //        int temporada = inT_Grp(gNT);
+                    //        int indiceNumeroTemporada = gNT.Index;
+                    //        if (esIgnorarNumeroDetrasDe(temporada,
+                    //                                    indiceNumeroTemporada)
+                    //           || (pr.estaDentroDeFecha(gNT))
+                    //           )
+                    //        {
+                    //            getD().Temporada = 1;
+                    //        }
+                    //        else
+                    //        {
+                    //            getD().IndiceNumeroTemporada = indiceNumeroTemporada;
+                    //            //getD().Temporada = temporada;
+                    //            getD().TemporadaStr = gNT.ToString();
+                    //        }
+
+                    //    }
+                    //    else
+                    //    {
+                    //        getD().Temporada = 1;
+                    //    }
+
+                    //}
+                    //else
+                    //{
+                    //    d = null;
+                    //}
                 });
                 if (getD() != null)
                 {
@@ -1200,10 +1258,19 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                 {
                     if (capturar_NC_Capitulo_alPrincipio(mx))
                     {
+                        
                         Group gIO = this.pr.re.getGrupoIdentificadorOva(mx);
-                        getD().IndiceIdentificadorDeOVA = gIO.Index;
-                        getD().EsOVA = true;
-                        getD().IdentificadorDeOVAStr = gIO.ToString();
+
+                        getD().setEsOva();
+
+                        getD().setIdentificacionOva_TagOVA(
+                            indiceDeRepresentacionStr_tagOVA: gIO.Index
+                            ,representacionStr_tagOVA: gIO.ToString()
+                            );
+
+                        //getD().IndiceIdentificadorDeOVA = gIO.Index;
+                        //getD().EsOVA = true;
+                        //getD().IdentificadorDeOVAStr = gIO.ToString();
 
                     }
                     else
@@ -1223,7 +1290,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
             mx = getMatchCoincidente(arrgR(
                 this.pr.re.Re_N_Union_N_Repetir.SSfReS
             ));
-            alEncontrarPatronContenedor(mx, () =>
+            alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
             {
                 Group gNC = this.pr.re.getGrupoNumeroCapitulo(mx);
                 CaptureCollection lc = gNC.Captures;
@@ -1241,9 +1308,13 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                     {
                         if (!(lc.Count - i > 1 && buscarDatosUnion(d, mx, i)))
                         {
-                            getD().IndiceNumeroCapitulo = cN.Index;
-                            //getD().Capitulo = capitulo;
-                            getD().CapituloStr = cN.ToString();
+                            getD().setIdentificacion_Capitulo_Numero(
+                                indiceDeRepresentacionStr: cN.Index
+                                ,representacionStr: cN.ToString()
+                                );
+
+                            //getD().IndiceNumeroCapitulo = cN.Index;
+                            //getD().CapituloStr = cN.ToString();
                         }
                         capturo = true;
                         break;

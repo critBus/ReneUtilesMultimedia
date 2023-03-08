@@ -81,7 +81,8 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 			initD();
 			if (this.pr.re.cf.EsParaAnime) {//&& (d == null || ((!d.EsOVA) && (!d.HayOvasEnElContendor)))
 				if (this.pr.re.Re_Ova.SSfreSfS.Match(nombre, I0).Success) {
-					d.EsOVA = true;
+                    //d.EsOVA = true;
+                    d.setEsOva();
 				}
 			}//1207
 
@@ -192,16 +193,14 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                     {//, indiceAcontinuacion
                         return null;
                     }
-                    //				if (d == null) {
-                    //					d = crearDatosDeNombreCapituloDelFinal();
-                    //				}				
 
+                d.setIdentificacion_Capitulo_Numero(
+                    indiceDeRepresentacionStr: tk.IndiceInicial
+                    ,representacionStr: tk.Token
+                    );
 
-                    //getCtxCn().agregarPropiedadesAContextoBasicasDeResultado();
-                    //getCtxCn().agregarPropiedadesAContextoHAY_NOMBRES_NORMALES();
-                    //getCtxCn().agregarPropiedadesAContexto
-                    d.Capitulo = numero;
-                    d.IndiceNumeroCapitulo = tk.IndiceInicial;
+                    //d.Capitulo = numero;
+                    //d.IndiceNumeroCapitulo = tk.IndiceInicial;
                     return getD();
 
                 }//fin for tokenizer numero

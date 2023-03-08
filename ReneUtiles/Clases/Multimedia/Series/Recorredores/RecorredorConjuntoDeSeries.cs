@@ -334,13 +334,17 @@ namespace ReneUtiles.Clases.Multimedia.Series.Recorredores
 						cm.NumeroCapituloInicial = dn.getCapituloInicial();
 					} else {
 						CapituloDeSerie cs = null;
+                        
 						if (esOva) {
 							cs = new CapituloDeSerieOva(te);
-						} else {
+                            
+
+                        } else {
 							cs = new CapituloDeSerie(te);
 						}
-						cs.NumeroDeCapitulo = dn.getCapitulo();
-						cr = cs;
+                        //cs.NumeroDeCapitulo = dn.getCapitulo();
+                        cs.NumeroDeCapitulo = dn.getCapituloInicial();
+                        cr = cs;
 					}
 					//ConjuntoDeFuentes cf = new ConjuntoDeFuentes();
 					DatosDeArchivoFisico df = new DatosDeArchivoFisico();

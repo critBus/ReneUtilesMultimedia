@@ -43,7 +43,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 		public TipoDeNombreDeSerie? TipoDeNombre;
         protected bool esSoloNumeros;
 
-        protected DatosDeIdentificacionIndividual idenificadorTemporada;
+        protected DatosDeIdentificacionIndividual identificadorTemporada;
         protected DatosDeIdentificacionIndividual identificadorCapitulo;
         protected DatosDeIdentificacionIndividualCapituloOva identificadorCapituloOva;
 
@@ -51,87 +51,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
         protected DatosDeIdentificacionColectivaCapitulosOva contendorDeOvas;
 
         protected DatosDeIdentificacionColectiva contendorTemporada;
-
-        //protected bool esContenedorDe_ConjuntoDeCapitulos_DeMismaTemporada;
-
-        //protected int temporada;
-        //protected int capitulo;
-
-
-        //protected int indiceNumeroCapitulo;
-
-        //public bool EsTemporadaNumerosRomanos;
-        //public int  IndiceTemporadaNumerosRomanos;
-        //del primer capitulo
-        //protected int indiceNumeroTemporada;
-
-
-
-
-
-        //protected bool esConjuntoDeCapitulos = false;
-        //protected int capituloInicial;
-        //protected int capituloFinal;
-        //protected int indiceNumeroCapituloInicial;
-        //protected int indiceNumeroCapituloFinal;
-
-
-        //public bool EsContenedorDeTemporada;//{ get; set; }
-        //      public int IndiceIdentificadorCapitulos;//{ get; set; }
-        //public int CantidadDeCapitulosQueContiene;//{ get; set; }
-        //public int IndiceDeNumeroCantidadDeCapitulosQueContiene;//{ get; set; }
-        //public int CantidadDeOvasQueContiene;
-        //public int IndiceDeNumeroCantidadDeOvasQueContiene;
-
-
-        //protected bool esOVA;//solo para anime
-        //public int IndiceIdentificadorDeOVA;
-
-
-        //protected string temporadaStr;
-        //protected string capituloStr;
-        //protected string  temporadaNumerosRomanosStr;
-        //protected string  capituloInicialStr;
-        //protected string  capituloFinalStr;
-        //public string  IdentificadorCapitulosStr;
-        //protected string  cantidadDeCapitulosQueContieneStr;
-
-        //protected string  cantidadDeOvasQueContieneStr;
-
-        //public string  IdentificadorDeOVAStr;
-
-
-        //protected int indiceIdentificadorTemporada;
-
-
-        //protected int indiceIdentificadorCapitulo;
-
-        //public string  IdentificadorTemporadaStr;
-
-
-        //public string IdentificadorCapituloStr;
-
-
-
-
-        //public bool esContenedorDeTemporadaMultiple;
-        //public ConjuntoDeIdentificacionesNumericas temporadasQueContiene;
-        //public IdentificacionNumericaEnStr cantidadDeTemporadasQueContiene;
-
-        //protected int temporadaInicial;
-        //protected int temporadaFinal;
-        //protected int indiceNumeroTemporadaInicial;
-        //protected int indiceNumeroTemporadaFinal;
-        //protected string temporadaInicialStr;
-        //protected string temporadaFinalStr;
-
-
-        //public int cantidadDeTemporadasQueContiene;//{ get; set; }
-        //public int IndiceDeNumeroCantidadDeCapitulosQueContiene;//{ get; set; }
-        //protected string cantidadDeCapitulosQueContieneStr;
-
-
-
+        //cambiarDe_NumeroCapitulo_A_NumeroTemporada
 
         public DatosDeNombreCapitulo()
 		{
@@ -141,7 +61,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 		public void iniT(DatosDeNombreCapitulo d)
 		{
             inicializar(
-                d.idenificadorTemporada
+                d.identificadorTemporada
          , d.identificadorCapitulo
          , d.identificadorCapituloOva
 
@@ -179,7 +99,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             this.TipoDeNombre=tipoDeNombre;
 
             
-            this.idenificadorTemporada = idenificadorTemporada;
+            this.identificadorTemporada = idenificadorTemporada;
             this.identificadorCapitulo = identificadorCapitulo;
             this.identificadorCapituloOva = identificadorCapituloOva;
 
@@ -272,9 +192,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
         //      public bool TieneTemporada {
         //	get{ return temporada > -1; }
         //}
-        public bool tieneTemporada() {
-            return this.idenificadorTemporada != null
-                && this.idenificadorTemporada.identificacionNumerica!=null;
+        public bool tieneTemporada_Unica() {
+            return this.identificadorTemporada != null
+                && this.identificadorTemporada.identificacionNumerica!=null;
         }
 
 
@@ -321,8 +241,8 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             if (!isEmpty_Capitulos()) {
                 return false;
             }
-            if (this.idenificadorTemporada != null
-                && this.idenificadorTemporada.identificacionNumerica != null)
+            if (this.identificadorTemporada != null
+                && this.identificadorTemporada.identificacionNumerica != null)
             {
                 return false;
             }
@@ -478,12 +398,12 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
         {
             get
             {
-                return idenificadorTemporada;
+                return identificadorTemporada;
             }
 
             set
             {
-                idenificadorTemporada = value;
+                identificadorTemporada = value;
             }
         }
 
@@ -795,7 +715,75 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             
         }
 
-        public void setIdentificacionTemporada_Numero(int indiceDeRepresentacionStr, string representacionStr)
+        private IdentificacionNumericaEnStr intentarCambiarDeGrupo(DatosDeIdentificacionColectiva dic)
+        {
+            IdentificacionNumericaEnStr idn = null;
+            if (dic != null
+                                    && dic.datosDelContenedor != null
+                                    && dic.datosDelContenedor.numerosIndividuales != null
+                                    && !dic.datosDelContenedor.numerosIndividuales.isEmpty()
+                                    )
+            {
+                idn = dic.datosDelContenedor.numerosIndividuales.OrdenadosPorIndice[0];
+                dic.datosDelContenedor.numerosIndividuales.clear();
+                
+            }
+            return idn;
+        }
+        public void cambiarDe_NumeroCapitulo_A_NumeroTemporada (){
+            IdentificacionNumericaEnStr idn = null;
+            if (this.identificadorCapitulo != null)
+            {
+                idn = this.identificadorCapitulo.identificacionNumerica;
+                this.identificadorCapitulo.identificacionNumerica = null;
+
+            }
+            else if (this.identificadorCapituloOva != null)
+            {
+                idn = this.identificadorCapituloOva.identificacionNumerica;
+                this.identificadorCapituloOva.identificacionNumerica = null;
+
+            }
+            else
+            {
+                //DatosDeIdentificacionColectivaCapitulos dic = this.contendorDeCapitulos;
+                idn = intentarCambiarDeGrupo(this.contendorDeCapitulos);
+                if (idn == null)
+                {
+                    idn = intentarCambiarDeGrupo(this.contendorDeOvas);
+                }
+            }
+
+            if (idn != null)
+            {
+                setIdentificacionTemporada_Numero(idn);
+            }
+
+        }
+        public void cambiarDe_NumeroTemporada_A_NumeroCapitulo() {
+            IdentificacionNumericaEnStr idn = null;
+            if (this.identificadorTemporada != null)
+            {
+                idn = this.identificadorTemporada.identificacionNumerica;
+                this.identificadorTemporada.identificacionNumerica = null;
+                
+            }
+            
+            else
+            {
+                //DatosDeIdentificacionColectivaCapitulos dic = this.contendorDeCapitulos;
+                idn = intentarCambiarDeGrupo(this.contendorTemporada);
+                
+            }
+            
+            if (idn!=null) {
+                setIdentificacion_Capitulo_Numero(idn);
+                
+            } 
+
+            }
+
+        public void setIdentificacionTemporada_Numero(IdentificacionNumericaEnStr idnt)
         {
             DatosDeIdentificacionIndividual di = new DatosDeIdentificacionIndividual();
             if (this.IdenificadorTemporada != null)
@@ -804,12 +792,29 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             }
 
 
-            di.identificacionNumerica = new IdentificacionNumericaEnStr(
-                indiceDeRepresentacionStr: indiceDeRepresentacionStr
-                , representacionStr: representacionStr
-                );
+            di.identificacionNumerica = idnt;
             this.IdenificadorTemporada = di;
             //setIdentificacionTemporada_Numero(di, indiceDeRepresentacionStr, representacionStr);
+        }
+        public void setIdentificacionTemporada_Numero(int indiceDeRepresentacionStr, string representacionStr)
+        {
+            setIdentificacionTemporada_Numero(new IdentificacionNumericaEnStr(
+                indiceDeRepresentacionStr: indiceDeRepresentacionStr
+                , representacionStr: representacionStr
+                ));
+            //DatosDeIdentificacionIndividual di = new DatosDeIdentificacionIndividual();
+            //if (this.IdenificadorTemporada != null)
+            //{
+            //    di = this.IdenificadorTemporada;
+            //}
+
+
+            //di.identificacionNumerica = new IdentificacionNumericaEnStr(
+            //    indiceDeRepresentacionStr: indiceDeRepresentacionStr
+            //    , representacionStr: representacionStr
+            //    );
+            //this.IdenificadorTemporada = di;
+
         }
         //private void setIdentificacionTemporada_Numero(DatosDeIdentificacionIndividual di,int indiceDeRepresentacionStr, string representacionStr) {
             
@@ -857,7 +862,10 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             this.IdenificadorTemporada = di;
         }
 
-        public void setIdentificacionOva_Numero(int indiceDeRepresentacionStr, string representacionStr) {
+        public void setIdentificacionOva_Numero(
+            int indiceDeRepresentacionStr
+            , string representacionStr
+            ) {
             DatosDeIdentificacionIndividualCapituloOva di = new DatosDeIdentificacionIndividualCapituloOva();
             if (this.IdentificadorCapituloOva != null)
             {
@@ -869,7 +877,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 );
             this.IdentificadorCapituloOva = di;
         }
-        public void setIdentificacionOva_TagOVA(int indiceDeRepresentacionStr_tagOVA, string representacionStr_tagOVA)
+        public void setIdentificacionOva_TagOVA(
+            int indiceDeRepresentacionStr_tagOVA
+            , string representacionStr_tagOVA)
         {
             DatosDeIdentificacionIndividualCapituloOva di = new DatosDeIdentificacionIndividualCapituloOva();
             if (this.IdentificadorCapituloOva != null)
@@ -879,6 +889,29 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             di.etiquetaOva = new IdentificacionEnStr(
                 indiceDeRepresentacionStr: indiceDeRepresentacionStr_tagOVA
                 , representacionStr: representacionStr_tagOVA
+                );
+            this.IdentificadorCapituloOva = di;
+        }
+
+        public void setIdentificacionOva_TagOVANumero(
+             int indiceDeRepresentacionStr_tagOVA
+            , string representacionStr_tagOVA
+            ,int indiceDeRepresentacionStr_numero
+            , string representacionStr_numero
+            )
+        {
+            DatosDeIdentificacionIndividualCapituloOva di = new DatosDeIdentificacionIndividualCapituloOva();
+            if (this.IdentificadorCapituloOva != null)
+            {
+                di = this.IdentificadorCapituloOva;
+            }
+            di.etiquetaOva = new IdentificacionEnStr(
+                indiceDeRepresentacionStr: indiceDeRepresentacionStr_tagOVA
+                , representacionStr: representacionStr_tagOVA
+                );
+            di.identificacionNumerica = new IdentificacionNumericaEnStr(
+                indiceDeRepresentacionStr: indiceDeRepresentacionStr_numero
+                , representacionStr: representacionStr_numero
                 );
             this.IdentificadorCapituloOva = di;
         }
@@ -907,6 +940,32 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             dc.esDeEsteTipo = true;
 
             this.contendorDeCapitulos = dc;
+        }
+
+        public int getTemporada() {
+            if (tieneTemporada_Unica()) {
+                return this.identificadorTemporada.identificacionNumerica.Numero;
+            }
+            return -1;
+        }
+        public int getIndiceTemporada()
+        {
+            if (tieneTemporada_Unica())
+            {
+                return this.identificadorTemporada.identificacionNumerica.IndiceDeRepresentacionStr;
+            }
+            return -1;
+        }
+
+        public int getIndiceEtiquetaTemporada()
+        {
+            if (this.identificadorTemporada!=null
+                && this.identificadorTemporada.etiqueta!=null
+                )
+            {
+                return this.identificadorTemporada.etiqueta.IndiceDeRepresentacionStr;
+            }
+            return -1;
         }
 
 
@@ -1068,18 +1127,33 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             , string representacionStr
             )
         {
+            setIdentificacion_Capitulo_Numero(new IdentificacionNumericaEnStr(
+                indiceDeRepresentacionStr: indiceDeRepresentacionStr
+                , representacionStr: representacionStr
+                ));
+            //DatosDeIdentificacionIndividual di = new DatosDeIdentificacionIndividual();
+            //if (this.identificadorCapitulo != null)
+            //{
+            //    di = this.identificadorCapitulo;
+            //}
+            //di.identificacionNumerica = new IdentificacionNumericaEnStr(
+            //    indiceDeRepresentacionStr: indiceDeRepresentacionStr
+            //    , representacionStr: representacionStr
+            //    );
+            //this.identificadorCapitulo = di;
+        }
+        public void setIdentificacion_Capitulo_Numero(
+           IdentificacionNumericaEnStr idn
+           )
+        {
             DatosDeIdentificacionIndividual di = new DatosDeIdentificacionIndividual();
             if (this.identificadorCapitulo != null)
             {
                 di = this.identificadorCapitulo;
             }
-            di.identificacionNumerica = new IdentificacionNumericaEnStr(
-                indiceDeRepresentacionStr: indiceDeRepresentacionStr
-                , representacionStr: representacionStr
-                );
+            di.identificacionNumerica = idn;
             this.identificadorCapitulo = di;
         }
-
         public void setEsContendedorDe_Capitulos_DeMismaSerie(bool loEs) {
             if (this.contendorDeCapitulos==null) {
                 this.ContendorDeCapitulos = new DatosDeIdentificacionColectivaCapitulos();
@@ -1138,9 +1212,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
         }
 
         public bool hayNumeroTemporada_NoCantidad() {
-            if (this.idenificadorTemporada != null
-                && this.idenificadorTemporada.identificacionNumerica!=null
-                &&this.idenificadorTemporada.identificacionNumerica.Numero>-1) {
+            if (this.identificadorTemporada != null
+                && this.identificadorTemporada.identificacionNumerica!=null
+                &&this.identificadorTemporada.identificacionNumerica.Numero>-1) {
                 return true;
             }
             return this.contendorTemporada != null
@@ -1189,6 +1263,74 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             dc.esDeEsteTipo = true;
             this.contendorTemporada = dc;
         }
+
+
+        public void setIdentificacion_ConjuntoDeTemporadas_InicialFinal(
+                  
+                   int indiceDeRepresentacionStr_inicial
+                   , string representacionStr_inicial
+                   , int indiceDeRepresentacionStr_final
+                   , string representacionStr_final)
+        {
+            DatosDeIdentificacionColectiva dc = new DatosDeIdentificacionColectiva();
+            if (this.contendorTemporada != null)
+            {
+                dc = this.contendorTemporada;
+            }
+            
+            if (dc.datosDelContenedor == null)
+            {
+                dc.datosDelContenedor = new DatosDeContenedor();
+            }
+
+            dc.datosDelContenedor.numerosIndividuales = new ConjuntoDeIdentificacionesNumericas();
+            dc.datosDelContenedor.numerosIndividuales.add(
+                new IdentificacionNumericaEnStr(
+                    indiceDeRepresentacionStr: indiceDeRepresentacionStr_inicial
+                , representacionStr: representacionStr_inicial
+                )
+                );
+            dc.datosDelContenedor.numerosIndividuales.add(
+                new IdentificacionNumericaEnStr(
+                    indiceDeRepresentacionStr: indiceDeRepresentacionStr_final
+                , representacionStr: representacionStr_final
+                )
+                );
+            dc.esDeEsteTipo = true;
+            this.contendorTemporada = dc;
+        }
+
+
+        //public int getCantidadDeCapitulos()
+        //{
+        //    DatosDeIdentificacionIndividual di = this.identificadorCapitulo ?? this.identificadorCapituloOva;
+        //    if (
+        //        di != null
+        //        && di != null
+
+        //        )
+        //    {
+        //        return 1;
+        //    }
+
+        //    DatosDeIdentificacionColectivaCapitulos dc = this.contendorDeCapitulos ?? this.contendorDeOvas;
+        //    if (
+        //        dc != null
+        //        && dc.datosDelContenedor!=null
+                
+        //        ) {
+                
+        //        return dc.datosDelContenedor.getTamannoDelRangoQueContiene();
+        //    }
+
+        //    return -1;
+        //}
+       
+
+
+
+
+
 
     }
 }

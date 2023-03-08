@@ -18,6 +18,7 @@ using ReneUtiles.Clases.Multimedia.Series;
 using ReneUtiles.Clases;
 using System.Text.RegularExpressions;
 using ReneUtiles;
+
 using ReneUtiles.Clases.Basicos.String;
 using ReneUtiles.Clases.Multimedia.Series;
 using ReneUtiles.Clases.Multimedia.Series.Representaciones;
@@ -39,7 +40,7 @@ namespace ReneUtiles.Clases.Multimedia.Paquetes
 	/// <summary>
 	/// Description of AnalizadorDelPaquete.
 	/// </summary>
-	public class AnalizadorDelPaquete:ConsolaBasica
+	public class AnalizadorDelPaquete:ConsolaBasica 
 	{
 		class DirectoriosPrestablecidos
 		{

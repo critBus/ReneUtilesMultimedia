@@ -320,20 +320,22 @@ namespace ReneUtiles.Clases.Multimedia.Series.Representaciones.Temporadas
 			}
 			//DatosDeNombreCapitulo d = dn.datosDelFinal ?? dn.datosDelPrincipio;
 			if (d != null) {
-				string temporada = d.TieneTemporada ? " T=" + d.Temporada : "";
-				string esSoloNumero = d.EsSoloNumeros ? " sn" : "";
+				string temporada = d.tieneTemporada_Unica() ? " T=" + d.getTemporada() : "";//d.TieneTemporada ? " T=" + d.Temporada : "";
+                string esSoloNumero = d.EsSoloNumeros ? " sn" : "";
 				//string alFinal = temporada + esSoloNumero + " i=" + d.IndiceDeInicioDespuesDeLosNumeros;
 				string alFinal = temporada + esSoloNumero + " " + dn.Clave;
-				if (d.EsConjuntoDeCapitulos) {
-					//awl(d.CapituloInicial + " - " + d.CapituloFinal + alFinal);
-					cwl(d.CapituloInicial + " - " + d.CapituloFinal + alFinal);
+                //if (d.EsConjuntoDeCapitulos) {
+                if (d.esConjuntoDeCapitulos())
+                {
+                    //awl(d.CapituloInicial + " - " + d.CapituloFinal + alFinal);
+                    cwl(d.getCapituloInicial() + " - " + d.getCapituloFinal() + alFinal);
 				} else {
-					if (d.EsContenedorDeTemporada) {
-						cwl("c=" + d.CantidadDeCapitulosQueContiene + " " + alFinal);
+					if (d.esContenedorDeTemporada()) {
+						cwl("c=" + d.getCantidadDeCapitulos() + " " + alFinal);
 						//awl("c=" + d.CantidadDeCapitulosQueContiene + " " + alFinal);
 					} else {
 						//awl(d.Capitulo + alFinal);//+" :"
-						cwl(d.Capitulo + alFinal);
+						cwl(d.getCapituloInicial() + alFinal);
 					}
 								
 				}

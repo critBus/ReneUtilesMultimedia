@@ -79,11 +79,11 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 		
 		public int getTemporada(){
 			
-		return (datosDelFinal!=null&&datosDelFinal.tieneTemporada()
+		return (datosDelFinal!=null&&datosDelFinal.tieneTemporada_Unica()
                 && datosDelFinal.IdenificadorTemporada.identificacionNumerica != null
                 ? datosDelFinal.IdenificadorTemporada.identificacionNumerica.Numero
                 :
-			        (datosDelPrincipio!=null&& datosDelPrincipio.tieneTemporada()
+			        (datosDelPrincipio!=null&& datosDelPrincipio.tieneTemporada_Unica()
                     && datosDelPrincipio.IdenificadorTemporada.identificacionNumerica!=null
                     ? datosDelPrincipio.IdenificadorTemporada.identificacionNumerica.Numero: 1));
 		}

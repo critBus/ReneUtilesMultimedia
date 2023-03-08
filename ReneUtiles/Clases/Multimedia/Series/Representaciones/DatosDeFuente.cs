@@ -116,10 +116,10 @@ namespace ReneUtiles.Clases.Multimedia.Series.Representaciones
 			return new HashSet<DatosDeFuente>(s,comparadorDeIgualdad_DatosDeSerie);
 		}
 		
-		public int getCantidadDeCapitulosDeContenedorDeTemporada(){
+		public int getCantidadDeCapitulos(){
 			int cantidad=-1;
 			foreach (DatosDeNombreSerie d in this.Ldns) {
-				int c=d.getCantidadDeCapitulosDeContenedorDeTemporada();
+                int c = d.getCantidadDeCapitulos();//d.getCantidadDeCapitulosDeContenedorDeTemporada();
 				if(c!=-1&&c>cantidad){
 					cantidad=c;
 				}
