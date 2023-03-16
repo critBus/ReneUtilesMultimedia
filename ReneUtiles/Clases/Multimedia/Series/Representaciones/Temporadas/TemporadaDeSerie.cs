@@ -18,7 +18,7 @@ using ReneUtiles.Clases.Multimedia.Series;
 using ReneUtiles.Clases;
 using System.Text.RegularExpressions;
 using ReneUtiles;
-using ReneUtiles.Clases.Basicos.String;
+using ReneUtiles.Clases.Basicos.String; 
 using ReneUtiles.Clases.Multimedia.Series;
 //using ReneUtiles.Clases.Multimedia.Series.Procesadores.Ignorar;
 using ReneUtiles.Clases.Multimedia.Series.Procesadores.Conjuntos;

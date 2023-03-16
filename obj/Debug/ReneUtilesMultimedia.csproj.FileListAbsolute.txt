@@ -9,8 +9,6 @@ D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\obj\Debug\ReneUtilesMul
 D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\obj\Debug\ReneUtilesMultimedia.dll
 D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\obj\Debug\ReneUtilesMultimedia.pdb
 D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\delimon.win32.io.dll
-D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\ReneUtilesMultimedia.dll.CodeAnalysisLog.xml
-D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\ReneUtilesMultimedia.dll.lastcodeanalysissucceeded
 D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\Npgsql.dll
 D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\System.ValueTuple.dll
 D:\_Cosas\Programacion\Proyectos\C#\ReneUtilesMultimedia\bin\Debug\System.Threading.Tasks.Extensions.dll
