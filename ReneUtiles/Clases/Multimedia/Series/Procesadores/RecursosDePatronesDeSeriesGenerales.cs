@@ -7,7 +7,9 @@
  * Para cambiar esta plantilla use Herramientas | Opciones | Codificación | Editar Encabezados Estándar
  */
 using System;
+#pragma warning disable CS0105 // The using directive for 'System' appeared previously in this namespace
 using System;
+#pragma warning restore CS0105 // The using directive for 'System' appeared previously in this namespace
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -20,7 +22,9 @@ using ReneUtiles.Clases;
 using System.Text.RegularExpressions;
 using ReneUtiles;
 using ReneUtiles.Clases.Basicos.String;
+#pragma warning disable CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 using ReneUtiles.Clases.Multimedia.Series;
+#pragma warning restore CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 //using ReneUtiles.Clases.Multimedia.Series.Procesadores.Ignorar;
 using ReneUtiles.Clases.Multimedia.Series.Procesadores.Conjuntos;
 using ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos;

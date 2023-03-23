@@ -15,6 +15,7 @@ using System.Text;
 using ReneUtiles.Clases.Multimedia;
 using ReneUtiles.Clases.Multimedia.Relacionadores.Saltos;
 using ReneUtiles.Clases;
+using ReneUtiles.Clases.Interfaces;
 
 namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 {
@@ -48,69 +49,28 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
         {
             int menor = -1;
             List<int> li = new List<int>();
-            DatosDeIdentificacionIndividual[] D = {
-                identificadorTemporada,identificadorCapitulo,identificadorCapituloOva
+
+            ConIndiceInicial []CI = {
+                identificadorTemporada
+                ,identificadorCapitulo
+                ,identificadorCapituloOva
+                ,contendorDeCapitulos
+                ,contendorDeOvas
+                ,contendorTemporada
             };
-            foreach (DatosDeIdentificacionIndividual d in D)
+            foreach (ConIndiceInicial ci in CI)
             {
-                if (d != null)
-                {
-                    if (d.identificacionNumerica != null)
-                    {
-                        li.Add(d.identificacionNumerica.IndiceDeRepresentacionStr);
-                    }
-                    if (d.etiqueta != null)
-                    {
-                        li.Add(d.etiqueta.IndiceDeRepresentacionStr);
+                if (ci!=null) {
+                    int r = ci.getIndiceInicial();
+                    if (r!=-1) {
+                        li.Add(r);
                     }
                 }
             }
-            DatosDeIdentificacionColectiva[] DI = {
-                contendorDeCapitulos,contendorDeOvas,contendorTemporada
-            };
-            foreach (DatosDeIdentificacionColectiva d in DI)
-            {
-                if (d != null
-
-                    )
-                {
-                    if (d.datosDelContenedor != null
-                    && d.esDeEsteTipo//d.datosDelContenedor.esDeEsteTipo
-                   )
-                    {
-                        if (!d.datosDelContenedor.numerosIndividuales.isEmpty())
-                        {
-                            li.Add(d.datosDelContenedor.numerosIndividuales.OrdenadosPorIndice.ElementAt(0).IndiceDeRepresentacionStr);
-                        }
-                        if (d.datosDelContenedor.numeroCantidad != null)
-                        {
-                            li.Add(d.datosDelContenedor.numeroCantidad.IndiceDeRepresentacionStr);
-                        }
-                    }
-
-
-                    if (d.etiqueta != null)
-                    {
-                        li.Add(d.etiqueta.IndiceDeRepresentacionStr);
-                    }
-
-                }
-            }
-            li.Add(this.indiceDelFinalDeNombre);
+            
 
             int[] indices = li.ToArray();
-            //= {
-            //    IndiceIdentificadorTemporada,
-            //    IndiceIdentificadorCapitulos,
-            //    IndiceIdentificadorCapitulo,
-            //     this.indiceDelFinalDeNombre,
-            //     IndiceTemporadaNumerosRomanos,
-            //     IndiceDelPrimerNumero,
-
-            //     IndiceNumeroTemporadaInicial
-
-            //};
-            //cwl(str(indices));   
+            
             int end = indices.Length;
             for (int i = 0; i < end; i++)
             {
@@ -129,28 +89,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             get
             {
                 return getIndiceDelFinalDeNombre();
-                //int menor = -1;
-                //int[] indices = {
-                //	IndiceIdentificadorTemporada,
-                //	IndiceIdentificadorCapitulos,
-                //	IndiceIdentificadorCapitulo,
-                //	 this.indiceDelFinalDeNombre,
-                //	 IndiceTemporadaNumerosRomanos,
-                //	 IndiceDelPrimerNumero,
-                //                 IndiceNumeroTemporadaInicial
-
-                //            };
-                ////cwl(str(indices));   
-                //int end = indices.Length;
-                //for (int i = 0; i < end; i++) {
-                //	int indice = indices[i];
-                //	if (indice != -1 && (menor == -1 || indice < menor)) {
-                //		menor = indice;
-                //	}
-                //}
-                //return menor;
-                ////return this.indiceDelFinalDeNombre;
-
+                
             }
             set { this.indiceDelFinalDeNombre = value; }
         }
@@ -159,61 +98,33 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             get
             {
                 List<int> li = new List<int>();
-                DatosDeIdentificacionIndividual[] D = {
-                identificadorTemporada,identificadorCapitulo,identificadorCapituloOva
-            };
-                foreach (DatosDeIdentificacionIndividual d in D)
-                {
-                    if (d != null
-                        && d.identificacionNumerica != null
-                        )
-                    {
-                        li.Add(d.identificacionNumerica.IndiceDeRepresentacionStr);
-                    }
-                }
-                DatosDeIdentificacionColectiva[] DI = {
-                contendorDeCapitulos,contendorDeOvas,contendorTemporada
-            };
-                foreach (DatosDeIdentificacionColectiva d in DI)
-                {
-                    if (d != null
 
-                    )
+                ConPrimerIndiceNumerico[] CI = {
+                identificadorTemporada
+                ,identificadorCapitulo
+                ,identificadorCapituloOva
+                ,contendorDeCapitulos
+                ,contendorDeOvas
+                ,contendorTemporada
+            };
+                foreach (ConPrimerIndiceNumerico ci in CI)
+                {
+                    if (ci != null)
                     {
-                        if (d.datosDelContenedor != null
-                        && d.esDeEsteTipo//d.datosDelContenedor.esDeEsteTipo
-                       )
+                        int r = ci.getPrimerIndiceDeNumero();
+                        if (r != -1)
                         {
-                            if (!d.datosDelContenedor.numerosIndividuales.isEmpty())
-                            {
-                                li.Add(d.datosDelContenedor.numerosIndividuales.OrdenadosPorIndice.ElementAt(0).IndiceDeRepresentacionStr);
-                            }
-                            if (d.datosDelContenedor.numeroCantidad != null)
-                            {
-                                li.Add(d.datosDelContenedor.numeroCantidad.IndiceDeRepresentacionStr);
-                            }
+                            li.Add(r);
                         }
                     }
                 }
-                li.Add(this.indiceDelFinalDeNombre);
-
+                
                 int[] indices = li.ToArray();
 
 
 
                 int menor = -1;
-     //           int[] indices = {
-     //               IndiceNumeroCapitulo,
-     //               IndiceNumeroTemporada,
-     //               IndiceNumeroCapituloInicial,
-     //               IndiceNumeroCapituloFinal,
-     //               IndiceDeNumeroCantidadDeCapitulosQueContiene,
-					////this.indiceDelPrimerNumero
-     //               IndiceDelPrimerNumero,
-     //               IndiceNumeroTemporadaInicial
-
-     //           };
-                //cwl(str(indices));   
+     
                 int end = indices.Length;
                 for (int i = 0; i < end; i++)
                 {

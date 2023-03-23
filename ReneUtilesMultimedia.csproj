@@ -49,9 +49,13 @@
     <Compile Include="ReneUtiles\Clases\Multimedia\Paquetes\Representaciones\DirectorioDeSeriesDelPaquete.cs" />
     <Compile Include="ReneUtiles\Clases\Multimedia\Paquetes\Representaciones\Paquete.cs" />
     <Compile Include="ReneUtiles\Clases\Multimedia\Paquetes\Representaciones\SeriesDelPaquete.cs" />
+    <Compile Include="ReneUtiles\Clases\Multimedia\Relacionadores\DatosDeRelacionDeSeries.cs" />
+    <Compile Include="ReneUtiles\Clases\Multimedia\Relacionadores\DatosDeRelacionDeStr.cs" />
+    <Compile Include="ReneUtiles\Clases\Multimedia\Relacionadores\DatosDeSerieRelacionada.cs" />
+    <Compile Include="ReneUtiles\Clases\Multimedia\Relacionadores\EventosDeRelacionadorDeSerie.cs" />
     <Compile Include="ReneUtiles\Clases\Multimedia\Relacionadores\HistorialDerelacionesDeNombres.cs" />
     <Compile Include="ReneUtiles\Clases\Multimedia\Relacionadores\ProcesadorDeRelacionesDeNombresClaveSeries.cs" />
-    <Compile Include="ReneUtiles\Clases\Multimedia\Relacionadores\RelacionadorDeNombresClaveSeries.cs" />
+    <Compile Include="ReneUtiles\Clases\Multimedia\Relacionadores\RelacionadorDeNombresClave.cs" />
     <Compile Include="ReneUtiles\Clases\Multimedia\Relacionadores\Saltos\CondicionIgnorarConjuntoDeNumeros.cs" />
     <Compile Include="ReneUtiles\Clases\Multimedia\Relacionadores\Saltos\CondicionIgnorarNumero.cs" />
     <Compile Include="ReneUtiles\Clases\Multimedia\Relacionadores\Saltos\CondicionIgnorarNumeroEspecifico.cs" />

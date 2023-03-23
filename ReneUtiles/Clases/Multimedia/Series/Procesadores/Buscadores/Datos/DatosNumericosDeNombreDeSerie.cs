@@ -52,9 +52,29 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 		}
 		
 		public int getCapituloInicial(){//CapituloFinal
-			return (datosDelFinal!=null&&datosDelFinal.esConjuntoDeCapitulos()?datosDelFinal.getCapituloInicial():
-			        (datosDelPrincipio!=null?datosDelPrincipio.getCapituloInicial (): -1));
-			//return (datosDelPrincipio!=null&&datosDelPrincipio.EsConjuntoDeCapitulos?datosDelPrincipio.CapituloInicial:(datosDelFinal!=null?datosDelFinal.CapituloInicial:-1));
+            if (datosDelFinal != null 
+                //&& datosDelFinal.esConjuntoDeCapitulos()
+                )
+            {
+
+                return datosDelFinal.getCapituloInicial();
+
+
+            }
+            else {
+                if (datosDelPrincipio != null)
+                {
+                    return datosDelPrincipio.getCapituloInicial();
+                }
+                else {
+                    return -1;
+                }
+            }
+
+			//return (datosDelFinal!=null&&datosDelFinal.esConjuntoDeCapitulos()?datosDelFinal.getCapituloInicial():
+			//        (datosDelPrincipio!=null?datosDelPrincipio.getCapituloInicial (): -1));
+			
+            //return (datosDelPrincipio!=null&&datosDelPrincipio.EsConjuntoDeCapitulos?datosDelPrincipio.CapituloInicial:(datosDelFinal!=null?datosDelFinal.CapituloInicial:-1));
 		}
 		public int getCapituloFinal(){//CapituloFinal
 			return (datosDelFinal!=null&&datosDelFinal.esConjuntoDeCapitulos()? datosDelFinal.getCapituloFinal():

@@ -79,7 +79,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 			
 		//} 
 		
+#pragma warning disable CS0108 // 'DatosDeFechaEnNombre.estaDentroDeLosLimites_DatosDeIgnorarNumero(int)' hides inherited member 'DatosDeFechaEnStr.estaDentroDeLosLimites_DatosDeIgnorarNumero(int)'. Use the new keyword if hiding was intended.
 		public DatosDeIgnorarNumero estaDentroDeLosLimites_DatosDeIgnorarNumero(int indice){
+#pragma warning restore CS0108 // 'DatosDeFechaEnNombre.estaDentroDeLosLimites_DatosDeIgnorarNumero(int)' hides inherited member 'DatosDeFechaEnStr.estaDentroDeLosLimites_DatosDeIgnorarNumero(int)'. Use the new keyword if hiding was intended.
 			if (isEmpty()) {
 				return null;
 			}

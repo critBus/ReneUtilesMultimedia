@@ -19,7 +19,9 @@ using ReneUtiles.Clases;
 using System.Text.RegularExpressions;
 using ReneUtiles;
 using ReneUtiles.Clases.Basicos.String;
+#pragma warning disable CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 using ReneUtiles.Clases.Multimedia.Series;
+#pragma warning restore CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 //using ReneUtiles.Clases.Multimedia.Series.Procesadores.Ignorar;
 using ReneUtiles.Clases.Multimedia.Series.Procesadores.Conjuntos;
 using ReneUtiles.Clases.Multimedia.Series.Representaciones.Series;
@@ -93,7 +95,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Representaciones
 		{
 			Serie s = null;
 			foreach (KeySerie k in lk) {
-				s = getSerie(k.Clave);
+                DatosDeSerieRelacionada dr = new DatosDeSerieRelacionada();
+                dr.set(k);
+                s = getSerie(k.Clave,dr);
 				if (s != null) {
 					break;
 					//s.addKeySerieAll(lk,url);
@@ -112,15 +116,17 @@ namespace ReneUtiles.Clases.Multimedia.Series.Representaciones
 			}
 			return s;
 		}
-		public Serie getSerieYCrearSiNoExiste(string clave, string nombre, TipoDeNombreDeSerie? tipoDeSerie)
+		public Serie getSerieYCrearSiNoExiste(string clave, string nombre, TipoDeNombreDeSerie? tipoDeSerie
+            , DatosDeSerieRelacionada ds)
 		{
-			Serie s = getSerie(clave);
+			Serie s = getSerie(clave, ds);
 			if (s == null) {
 				s = new Serie();
-				
-				s.addKeySerie(new KeySerie(Nombre: nombre
-				                               , Clave: clave
-				                               , TipoDeSerie: tipoDeSerie != null ? (TipoDeNombreDeSerie)tipoDeSerie : TipoDeNombreDeSerie.DESCONOCIDO));
+                KeySerie kyActual = new KeySerie(Nombre: nombre
+                                               , Clave: clave
+                                               , TipoDeSerie: tipoDeSerie != null ? (TipoDeNombreDeSerie)tipoDeSerie : TipoDeNombreDeSerie.DESCONOCIDO);
+
+                s.addKeySerie(kyActual);
 //				s.addNombreYClave(nombre: nombre
 //								, clave: clave);
 				series.Add(s);
@@ -130,7 +136,12 @@ namespace ReneUtiles.Clases.Multimedia.Series.Representaciones
 				foreach (Row_KeyEquivalentes row in this.ckequi.conjuntos) {
 					if (!row.usado) {
 						foreach (KeySerie k in row.keys) {
-							if (proR.estanRelacionados(k.Clave, clave)) {
+                            DatosDeSerieRelacionada dsA = new DatosDeSerieRelacionada();
+                            dsA.set(k);
+                            DatosDeSerieRelacionada dsB = new DatosDeSerieRelacionada();
+                            dsB.set(kyActual);
+                            DatosDeRelacionDeSeries r = proR.estanRelacionados(k.Clave, dsA, clave, dsB);
+                            if (r.estanRelacionados) {
 								foreach (KeySerie k2 in row.keys) {
 									s.addKeySerie(k2);
 									if (!seriesPorClave.ContainsKey(k2.Clave)) {
@@ -151,7 +162,8 @@ namespace ReneUtiles.Clases.Multimedia.Series.Representaciones
 			}
 			return s;
 		}
-		public Serie getSerie(string clave)
+		public Serie getSerie(string clave,
+            DatosDeSerieRelacionada ds)
 		{
 			
 			
@@ -162,11 +174,14 @@ namespace ReneUtiles.Clases.Multimedia.Series.Representaciones
 				//foreach (string c in s.getClaves()) {
 				HashSet<KeySerie> keys = s.getKeysDeSerie();
 				foreach (KeySerie k in keys) {
-					//cwl("k.Clave="+k.Clave);//aratakangatari  //magickaito
-//					if(k.Clave=="aratakangatari"){
-//						cwl();
-//					}
-					if (proR.estanRelacionados(k.Clave, clave)) {
+                    //cwl("k.Clave="+k.Clave);//aratakangatari  //magickaito
+                    //					if(k.Clave=="aratakangatari"){
+                    //						cwl();
+                    //					}
+                    DatosDeSerieRelacionada dA = new DatosDeSerieRelacionada();
+                    dA.set(k);
+                    DatosDeRelacionDeSeries r = proR.estanRelacionados(k.Clave, dA, clave, ds);
+                    if (r.estanRelacionados) {
 						seriesPorClave.Add(clave, s);
 						return s;
 					}
@@ -190,7 +205,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Representaciones
 		{
 			Serie encontrada = null;
 			foreach (KeySerie k in hk) {
-				encontrada = getSerie(k.Clave);
+                DatosDeSerieRelacionada dr = new DatosDeSerieRelacionada();
+                dr.set(k);
+                encontrada = getSerie(k.Clave,dr);
 				if (encontrada != null) {
 					return encontrada;
 				}
@@ -214,7 +231,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Representaciones
 				foreach (KeyValuePair<KeySerie,HashSet<string>> row in s.keysDeSerieYUrls) {
 					KeySerie k = row.Key;
 					if (encontrada == null) {
-						encontrada = getSerie(k.Clave);
+                        DatosDeSerieRelacionada dr = new DatosDeSerieRelacionada();
+                        dr.set(k);
+                        encontrada = getSerie(k.Clave,dr);
 						if (encontrada == null) {
 							keysNoEncontradas.Add(k, row.Value);
 						}

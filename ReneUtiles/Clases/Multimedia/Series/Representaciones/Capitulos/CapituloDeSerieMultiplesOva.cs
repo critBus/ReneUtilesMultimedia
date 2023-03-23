@@ -18,7 +18,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Representaciones.Capitulos
 		public CapituloDeSerieMultiplesOva(TemporadaDeSerie t):base(t)
 		{
 		}
+#pragma warning disable CS0114 // 'CapituloDeSerieMultiplesOva.getCopia(TemporadaDeSerie)' hides inherited member 'CapituloDeSerieMultiples.getCopia(TemporadaDeSerie)'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.
 		public  RepresentacionDeCapitulo getCopia(TemporadaDeSerie t){
+#pragma warning restore CS0114 // 'CapituloDeSerieMultiplesOva.getCopia(TemporadaDeSerie)' hides inherited member 'CapituloDeSerieMultiples.getCopia(TemporadaDeSerie)'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.
 			CapituloDeSerieMultiplesOva c=new CapituloDeSerieMultiplesOva(t);
 			c.setCopiaDeDatos_CM(this);
 			return c;

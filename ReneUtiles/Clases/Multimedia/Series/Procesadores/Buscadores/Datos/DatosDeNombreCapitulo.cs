@@ -57,8 +57,11 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 		{
 			inicializar();
 		}
-		
-		public void iniT(DatosDeNombreCapitulo d)
+
+        
+
+
+        public void iniT(DatosDeNombreCapitulo d)
 		{
             inicializar(
                 d.identificadorTemporada
@@ -123,7 +126,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
         {//numeroCantidad
             return this.contendorDeOvas != null
                 && this.contendorDeOvas.datosDelContenedor!=null
-                && this.contendorDeOvas.esDeEsteTipo
+                //&& this.contendorDeOvas.esDeEsteTipo
                 && this.contendorDeOvas.datosDelContenedor.numeroCantidad != null;
         }
         //public bool HayOvasEnElContendor{
@@ -179,11 +182,11 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 && this.identificadorCapitulo.identificacionNumerica!=null)
                 || (this.contendorDeCapitulos != null
                 && this.contendorDeCapitulos.datosDelContenedor!=null
-                && this.contendorDeCapitulos.esDeEsteTipo
+               // && this.contendorDeCapitulos.esDeEsteTipo
                 && !this.contendorDeCapitulos.datosDelContenedor.numerosIndividuales.isEmpty()
                 ) || (this.contendorDeOvas != null
                 && this.contendorDeOvas.datosDelContenedor!=null
-                && this.contendorDeOvas.esDeEsteTipo
+               // && this.contendorDeOvas.esDeEsteTipo
                 && !this.contendorDeOvas.datosDelContenedor.numerosIndividuales.isEmpty()
                 );
         }
@@ -249,7 +252,8 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 
             if (this.contendorTemporada != null
                 && this.contendorTemporada.datosDelContenedor != null
-                && this.contendorTemporada.esDeEsteTipo)
+                //&& this.contendorTemporada.esDeEsteTipo
+                )
             {
                 if (this.contendorTemporada.datosDelContenedor.numeroCantidad != null)
                 {
@@ -279,7 +283,8 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             
             if (this.contendorDeCapitulos != null
                 &&this.contendorDeCapitulos.datosDelContenedor!=null
-                &&this.contendorDeCapitulos.esDeEsteTipo) {
+                //&&this.contendorDeCapitulos.esDeEsteTipo
+                ) {
                 if (this.contendorDeCapitulos.datosDelContenedor.numeroCantidad!=null) {
                     return false;
                 }
@@ -293,7 +298,8 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 
             if (this.contendorDeOvas != null
                 && this.contendorDeOvas.datosDelContenedor != null
-                && this.contendorDeOvas.esDeEsteTipo)
+                //&& this.contendorDeOvas.esDeEsteTipo
+                )
             {
                 if (this.contendorDeOvas.datosDelContenedor.numeroCantidad != null)
                 {
@@ -603,7 +609,8 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 
         public bool esContenedorDeTemporada() {
             return this.ContendorTemporada != null
-                && this.ContendorTemporada.esDeEsteTipo;
+                //&& this.ContendorTemporada.esDeEsteTipo
+                ;
                 //&& (this.ContendorTemporada.etiqueta != null
                 //|| (this.ContendorTemporada.datosDelContenedor != null && this.ContendorTemporada.esDeEsteTipo)
                // );
@@ -612,8 +619,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
         public int getCapituloInicial() {
             if (this.contendorDeCapitulos!=null
                 && this.contendorDeCapitulos.datosDelContenedor!=null
-                && this.contendorDeCapitulos.esDeEsteTipo
+                //&& this.contendorDeCapitulos.esDeEsteTipo
                 && this.contendorDeCapitulos.datosDelContenedor.numerosIndividuales!=null
+                &&!this.contendorDeCapitulos.datosDelContenedor.numerosIndividuales.isEmpty()
                 ) {
                 return this.contendorDeCapitulos.datosDelContenedor.numerosIndividuales.OrdenadosPorNumero.First().Numero;
             }
@@ -623,8 +631,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             }
             if (this.contendorDeOvas != null
                 && this.contendorDeOvas.datosDelContenedor != null
-                && this.contendorDeOvas.esDeEsteTipo
+                //&& this.contendorDeOvas.esDeEsteTipo
                 && this.contendorDeOvas.datosDelContenedor.numerosIndividuales != null
+                && !this.contendorDeOvas.datosDelContenedor.numerosIndividuales.isEmpty()
                 )
             {
                 return this.contendorDeOvas.datosDelContenedor.numerosIndividuales.OrdenadosPorNumero.First().Numero;
@@ -642,8 +651,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
         {
             if (this.contendorDeCapitulos != null
                 && this.contendorDeCapitulos.datosDelContenedor != null
-                && this.contendorDeCapitulos.esDeEsteTipo
+                //&& this.contendorDeCapitulos.esDeEsteTipo
                 && this.contendorDeCapitulos.datosDelContenedor.numerosIndividuales != null
+                && !this.contendorDeCapitulos.datosDelContenedor.numerosIndividuales.isEmpty()
                 )
             {
                 return this.contendorDeCapitulos.datosDelContenedor.numerosIndividuales.OrdenadosPorNumero.Last().Numero;
@@ -651,8 +661,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
            
             if (this.contendorDeOvas != null
                 && this.contendorDeOvas.datosDelContenedor != null
-                && this.contendorDeOvas.esDeEsteTipo
+                //&& this.contendorDeOvas.esDeEsteTipo
                 && this.contendorDeOvas.datosDelContenedor.numerosIndividuales != null
+                && !this.contendorDeOvas.datosDelContenedor.numerosIndividuales.isEmpty()
                 )
             {
                 return this.contendorDeOvas.datosDelContenedor.numerosIndividuales.OrdenadosPorNumero.Last().Numero;
@@ -666,14 +677,14 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             int cantidad = 0;
             if (this.contendorDeCapitulos!=null
                 &&this.contendorDeCapitulos.datosDelContenedor!=null
-                && this.contendorDeCapitulos.esDeEsteTipo
+                //&& this.contendorDeCapitulos.esDeEsteTipo
                 
                 ) {
                 cantidad+= this.contendorDeCapitulos.datosDelContenedor.getTamannoDelRangoQueContiene();
             }
             if (this.contendorDeOvas != null
                 && this.contendorDeOvas.datosDelContenedor != null
-                && this.contendorDeOvas.esDeEsteTipo
+                //&& this.contendorDeOvas.esDeEsteTipo
                 
                 )
             {
@@ -937,7 +948,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             }
 
             
-            dc.esDeEsteTipo = true;
+            //dc.esDeEsteTipo = true;
 
             this.contendorDeCapitulos = dc;
         }
@@ -990,7 +1001,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 indiceDeRepresentacionStr: indiceDeRepresentacionStr_numeroCantidad
                 , representacionStr: representacionStr_numeroCantidad
                 );
-            dc.esDeEsteTipo = true;
+            //dc.esDeEsteTipo = true;
 
             this.contendorDeCapitulos = dc;
         }
@@ -1016,7 +1027,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 indiceDeRepresentacionStr: indiceDeRepresentacionStr_numeroCantidad
                 , representacionStr: representacionStr_numeroCantidad
                 );
-            dc.esDeEsteTipo = true;
+            //dc.esDeEsteTipo = true;
 
             this.contendorDeOvas = dc;
         }
@@ -1046,7 +1057,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 indiceDeRepresentacionStr: indiceDeRepresentacionStr_numeroCantidad
                 , representacionStr: representacionStr_numeroCantidad
                 );
-            dc.esDeEsteTipo = true;
+            //dc.esDeEsteTipo = true;
 
             this.contendorDeOvas = dc;
         }
@@ -1073,7 +1084,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 indiceDeRepresentacionStr: indiceDeRepresentacionStr_numeroCantidad
                 , representacionStr: representacionStr_numeroCantidad
                 );
-            dc.esDeEsteTipo = true;
+            //dc.esDeEsteTipo = true;
 
             this.contendorDeCapitulos = dc; 
         }
@@ -1104,7 +1115,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 , representacionStr: representacionStr_final
                 )
                 );
-            dc.esDeEsteTipo = true;
+            //dc.esDeEsteTipo = true;
             this.contendorDeCapitulos = dc;
         }
 
@@ -1158,7 +1169,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             if (this.contendorDeCapitulos==null) {
                 this.ContendorDeCapitulos = new DatosDeIdentificacionColectivaCapitulos();
             }
-            this.contendorDeCapitulos.esDeEsteTipo = loEs;
+            //this.contendorDeCapitulos.esDeEsteTipo = loEs;
         }
         public void setEsContendedorDe_Capitulos_DeMismaTemporada(bool loEs)
         {
@@ -1166,7 +1177,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             {
                 this.ContendorDeCapitulos = new DatosDeIdentificacionColectivaCapitulos();
             }
-            this.contendorDeCapitulos.esDeEsteTipo = loEs;
+            //this.contendorDeCapitulos.esDeEsteTipo = loEs;
             this.contendorDeCapitulos.esDeMismaTemporada = loEs;
         }
         public void setEsContendedorDeOvas_Capitulos_DeMismaTemporada(bool loEs)
@@ -1175,7 +1186,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             {
                 this.ContendorDeOvas = new DatosDeIdentificacionColectivaCapitulosOva();
             }
-            this.contendorDeOvas.esDeEsteTipo = loEs;
+           // this.contendorDeOvas.esDeEsteTipo = loEs;
             this.contendorDeOvas.esDeMismaTemporada = loEs;
         }
 
@@ -1185,7 +1196,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             {
                 this.ContendorDeOvas = new DatosDeIdentificacionColectivaCapitulosOva();
             }
-            this.contendorDeOvas.esDeEsteTipo = loEs;
+            //this.contendorDeOvas.esDeEsteTipo = loEs;
         }
 
         public void setEsContendedorDe_Temporadas(bool loEs)
@@ -1194,7 +1205,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             {
                 this.ContendorDeCapitulos = new DatosDeIdentificacionColectivaCapitulos();
             }
-            this.contendorDeCapitulos.esDeEsteTipo = loEs;
+            //this.contendorDeCapitulos.esDeEsteTipo = loEs;
         }
 
         public void setTagOva(int indiceDeRepresentacionStr_etiquetaOva
@@ -1218,7 +1229,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 return true;
             }
             return this.contendorTemporada != null
-                && this.contendorTemporada.esDeEsteTipo
+                //&& this.contendorTemporada.esDeEsteTipo
                 && this.contendorTemporada.datosDelContenedor != null
                 && this.contendorTemporada.datosDelContenedor.numerosIndividuales != null
                 && !this.contendorTemporada.datosDelContenedor.numerosIndividuales.isEmpty();
@@ -1260,7 +1271,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 , representacionStr: representacionStr_final
                 )
                 );
-            dc.esDeEsteTipo = true;
+            //dc.esDeEsteTipo = true;
             this.contendorTemporada = dc;
         }
 
@@ -1296,7 +1307,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 , representacionStr: representacionStr_final
                 )
                 );
-            dc.esDeEsteTipo = true;
+            //dc.esDeEsteTipo = true;
             this.contendorTemporada = dc;
         }
 

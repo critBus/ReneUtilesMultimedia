@@ -27,5 +27,15 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             dov.clonarValores(d);
             return dov;
         }
+
+        public override int getIndiceInicial()
+        {
+            int r = base.getIndiceInicial();
+            if (etiquetaOva != null)
+            {
+                return r < etiquetaOva.IndiceDeRepresentacionStr ? r : etiquetaOva.IndiceDeRepresentacionStr;
+            }
+            return r;
+        }
     }
 }

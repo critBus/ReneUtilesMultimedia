@@ -12,7 +12,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 
         public virtual void clonarValores(DatosDeIdentificacionColectivaCapitulos d) {
             this.datosDelContenedor = d.datosDelContenedor;
-            this.esDeEsteTipo = d.esDeEsteTipo;
+            //this.esDeEsteTipo = d.esDeEsteTipo;
             this.etiqueta = d.etiqueta;
 
             this.esDeMismaTemporada = d.esDeMismaTemporada;

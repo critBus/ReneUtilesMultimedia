@@ -19,7 +19,9 @@ using ReneUtiles.Clases;
 using System.Text.RegularExpressions;
 using ReneUtiles;
 using ReneUtiles.Clases.Basicos.String;
+#pragma warning disable CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 using ReneUtiles.Clases.Multimedia.Series;
+#pragma warning restore CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 using ReneUtiles.Clases.Multimedia.Series.Representaciones;
 //using ReneUtiles.Clases.Multimedia.Series.Procesadores.Ignorar;
 //using ReneUtiles.Clases.Multimedia.Series.Procesadores.Conjuntos;
@@ -46,8 +48,12 @@ namespace ReneUtiles.Clases.Multimedia.Paquetes.Representaciones
 		
 		
 		private ProcesadorDeRelacionesDeNombresClaveSeries proR;
+#pragma warning disable CS0169 // The field 'Paquete.cf_series_anime' is never used
 		private ConfiguracionDeSeries cf_series_anime;
+#pragma warning restore CS0169 // The field 'Paquete.cf_series_anime' is never used
+#pragma warning disable CS0169 // The field 'Paquete.cf_series_persona' is never used
 		private ConfiguracionDeSeries cf_series_persona;
+#pragma warning restore CS0169 // The field 'Paquete.cf_series_persona' is never used
 		
 		public Paquete(
 			DirectoryInfo carpeta

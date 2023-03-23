@@ -19,26 +19,41 @@ namespace ReneUtiles.Clases.Multimedia.Relacionadores
 	/// <summary>
 	/// Description of HistorialDerelacionesDeNombres.
 	/// </summary>
-	public class HistorialDerelacionesDeNombres
+	public class HistorialDerelacionesDeNombres:ConsolaBasica
 	{
-		private Dictionary<string,bool> relaciones;
-		private RelacionadorDeNombresClaveSeries rel;
-		public HistorialDerelacionesDeNombres(RelacionadorDeNombresClaveSeries rel)
+		private Dictionary<string, DatosDeRelacionDeSeries> relaciones;
+		private RelacionadorDeNombresClave rel;
+		public HistorialDerelacionesDeNombres(RelacionadorDeNombresClave rel)
 		{
 			this.rel=rel;
-			this.relaciones=new Dictionary<string, bool>();
+			this.relaciones=new Dictionary<string, DatosDeRelacionDeSeries>();
 		}
 		
-		public bool estanRelacionados(string a,string b){
+		public DatosDeRelacionDeSeries estanRelacionados(string a,string b, EventosDeRelacionadorDeSerie eventos)
+        {
 			string claveDeRelacion=a+"&"+b;
 			string claveDeRelacionInversa=b+"&"+a;
 			if(this.relaciones.ContainsKey(claveDeRelacion)){
-				return relaciones[claveDeRelacion];
+                DatosDeRelacionDeSeries r = relaciones[claveDeRelacion];
+                return eventos.alYaExistirRelacionPrevia(r);
+                 
 			}
-			bool seRelacionan=this.rel.estanRelacionados(a,b);
-			relaciones.Add(claveDeRelacion,seRelacionan);
-			relaciones.Add(claveDeRelacionInversa,seRelacionan);
-			return seRelacionan;
+            if (this.relaciones.ContainsKey(claveDeRelacionInversa))
+            {
+                DatosDeRelacionDeSeries r = relaciones[claveDeRelacionInversa];
+                return eventos.alYaExistirRelacionPrevia(r);
+            }
+            this.rel.eventos = eventos;
+            DatosDeRelacionDeSeries respuestaARelacion =this.rel.estanRelacionados(a,b);
+            //try {
+                relaciones.Add(claveDeRelacion, respuestaARelacion);
+                relaciones.Add(claveDeRelacionInversa, respuestaARelacion);
+            //} catch (Exception ex) {
+            //    cwl("dio error al intentar agregar "+a+" "+b);
+            //    cwl("en historial de relaciones de nombres de series");
+            //}
+			
+			return respuestaARelacion;
 		}
 	}
 }

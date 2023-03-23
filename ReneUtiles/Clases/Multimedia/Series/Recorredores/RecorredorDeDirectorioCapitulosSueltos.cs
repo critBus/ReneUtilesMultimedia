@@ -19,7 +19,9 @@ using ReneUtiles.Clases;
 using System.Text.RegularExpressions;
 using ReneUtiles;
 using ReneUtiles.Clases.Basicos.String;
+#pragma warning disable CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 using ReneUtiles.Clases.Multimedia.Series;
+#pragma warning restore CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 using ReneUtiles.Clases.Multimedia.Series.Representaciones;
 //using ReneUtiles.Clases.Multimedia.Series.Procesadores.Ignorar;
 using ReneUtiles.Clases.Multimedia.Series.Procesadores.Conjuntos;
@@ -307,10 +309,12 @@ namespace ReneUtiles.Clases.Multimedia.Series.Recorredores
 			List<DatosDeNombreSerie> ldn = new List<DatosDeNombreSerie>();
 			DatosDeNombreSerie dn = pr.crearDatosDeNombre(detenerSiEncuentraPatronesAlFinal: false);
 			ldn.Add(dn);
-//			if (dn.isEmpty() && ctx.EsVideo) {
-//				return;
-//			}
-			Serie s = series.getSerieYCrearSiNoExiste(dn.Clave, dn.NombreAdaptado, dn.getTipoDeNombre());
+            //			if (dn.isEmpty() && ctx.EsVideo) {
+            //				return;
+            //			}
+            DatosDeSerieRelacionada dr = new DatosDeSerieRelacionada();
+            dr.set(dn);
+            Serie s = series.getSerieYCrearSiNoExiste(dn.Clave, dn.NombreAdaptado, dn.getTipoDeNombre(),dr);
 //			Serie s = series.getSerie(dn.Clave);
 //			if (s == null) {
 //				s = new Serie();

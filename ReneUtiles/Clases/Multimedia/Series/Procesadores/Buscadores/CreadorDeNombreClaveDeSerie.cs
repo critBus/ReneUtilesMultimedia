@@ -265,7 +265,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 //			}
 			
 			//sustituir equivalentes the &
+#pragma warning disable CS0162 // Unreachable code detected
 			return null;
+#pragma warning restore CS0162 // Unreachable code detected
 		}
 		
 		private string adaptarNombreRecortado(string nombreRecortadoDeSerie, int I0 = 0, int IFinal = -1)
@@ -277,7 +279,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 			if (getConf().EsParaAnime) {
 				nombreAdaptado = getRe().Re_Ova.SSfreSfS.Replace(nombreAdaptado, "");
 			}
+#pragma warning disable CS0219 // The variable 'inicio' is assigned but its value is never used
 			int inicio = 0;
+#pragma warning restore CS0219 // The variable 'inicio' is assigned but its value is never used
 			I0 = 0;
 			IFinal = nombreAdaptado.Length;
 			//cwl("I0="+I0+" IFinal="+IFinal);

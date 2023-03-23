@@ -21,28 +21,34 @@ namespace ReneUtiles.Clases.Multimedia.Relacionadores
 	/// <summary>
 	/// Description of RelacionadorDeNombresClaveSeries.
 	/// </summary>
-	public class RelacionadorDeNombresClaveSeries:ConsolaBasica
+	public class RelacionadorDeNombresClave:ConsolaBasica
 	{
 
-		
-		
-		public RelacionadorDeNombresClaveSeries()
+        public EventosDeRelacionadorDeSerie eventos;
+
+        public RelacionadorDeNombresClave()
 		{
+            this.eventos = new EventosDeRelacionadorDeSerie();
 		}
 		
 		
-		public bool estanRelacionados(string a,string b){
+		public DatosDeRelacionDeSeries estanRelacionados(string a,string b){
 			a=a.ToLower();
 			b=b.ToLower();
 			return estanRelacionados_YaAmbosEnMinusculas(a,b);
 		}
-		public bool estanRelacionados_YaAmbosEnMinusculas(string a,string b){
-//			if(a=="aratakangatari"&&b=="magickaito"){
-//				cwl();
-//			}
-			
-			
-			int MIN = 7;//"1234567"
+        public DatosDeRelacionDeSeries estanRelacionados_YaAmbosEnMinusculas(string a, string b)
+        {
+            bool r = __estanRelacionados_YaAmbosEnMinusculas(a,b);
+            return eventos.creadorDeDatosDeRelacion(a, b, r);
+        }
+        private bool __estanRelacionados_YaAmbosEnMinusculas(string a,string b){
+            //			if(a=="aratakangatari"&&b=="magickaito"){
+            //				cwl();
+            //			} 
+
+
+            int MIN = 15;//"123456789012345"
 			
 			if (a==b) {
 				return true;
@@ -52,7 +58,8 @@ namespace ReneUtiles.Clases.Multimedia.Relacionadores
 			if(lengA<=MIN||lengB<=MIN){
 				return false;//pq la comparacion de que si son == ya se iso arriba 
 			}
-			int MIN_IGUALES=4;
+			int MIN_IGUALES= MIN-1;
+            
 			if(subs(a,0,MIN_IGUALES)!=subs(b,0,MIN_IGUALES)){
 				return false;//pq tienen que ser iguales los primeros caracteres
 			}

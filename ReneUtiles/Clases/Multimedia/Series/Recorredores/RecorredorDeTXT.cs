@@ -19,7 +19,9 @@ using ReneUtiles.Clases;
 using System.Text.RegularExpressions;
 using ReneUtiles;
 using ReneUtiles.Clases.Basicos.String;
+#pragma warning disable CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 using ReneUtiles.Clases.Multimedia.Series;
+#pragma warning restore CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 using ReneUtiles.Clases.Multimedia.Series.Representaciones;
 //using ReneUtiles.Clases.Multimedia.Series.Procesadores.Ignorar;
 using ReneUtiles.Clases.Multimedia.Series.Procesadores.Conjuntos;
@@ -90,7 +92,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Recorredores
 		}
 		public void recorrer()
 		{
+#pragma warning disable CS0219 // The variable 'indiceError' is assigned but its value is never used
 			int indiceError=0;
+#pragma warning restore CS0219 // The variable 'indiceError' is assigned but its value is never used
 			FileInfo f = (FileInfo)this.dpr.contexto.F;
 			if (Archivos.esTXT(f)) {
 				Archivos.recorrerTXT(f, (ls, indice) => {
@@ -210,18 +214,20 @@ namespace ReneUtiles.Clases.Multimedia.Series.Recorredores
 
 
                             }
-							
-//							cwl("fActual="+fActual);
-//							cwl("claveK="+claveK);
-//							cwl("nombreK="+nombreK);
-//							cwl("tn="+tn);
-//							cwl("indiceError="+indiceError++);
-//							if(indiceError==20){
-//								cwl();
-//							}
+
+                            //							cwl("fActual="+fActual);
+                            //							cwl("claveK="+claveK);
+                            //							cwl("nombreK="+nombreK);
+                            //							cwl("tn="+tn);
+                            //							cwl("indiceError="+indiceError++);
+                            //							if(indiceError==20){
+                            //								cwl();
+                            //							}
+                            DatosDeSerieRelacionada dr = new DatosDeSerieRelacionada();
+                            dr.set(dn);
 							Serie s = series.getSerieYCrearSiNoExiste(claveK,
 							                                          nombreK,
-							                                          tn);
+							                                          tn,dr);
 							if (dn.esContenedorDeTemporada()) {
 								TemporadaDeSerie t= s.getYCrearTemporadaSiNoExiste(dn.getTemporada());
 								DatosDeFuente df = new DatosDeFuente();

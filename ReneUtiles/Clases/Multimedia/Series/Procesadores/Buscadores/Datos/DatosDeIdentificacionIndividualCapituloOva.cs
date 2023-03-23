@@ -29,5 +29,14 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             d.etiqueta = etiqueta;
         }
 
+        public override int getIndiceInicial()
+        {
+            int r = base.getIndiceInicial();
+            if (etiquetaOva!=null) {
+                return r < etiquetaOva.IndiceDeRepresentacionStr ? r : etiquetaOva.IndiceDeRepresentacionStr;
+            }
+            return r;
+        }
+
     }
 }

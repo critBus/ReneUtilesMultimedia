@@ -8,10 +8,10 @@ using ReneUtiles.Clases;
 using ReneUtiles.Clases.ExprecionesRegulares;
 using ReneUtiles.Clases.ExprecionesRegulares.IdentificacionesNumericas;
 using System.Collections.ObjectModel;
-
+using ReneUtiles.Clases.Interfaces;
 namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 {
-    public class DatosDeContenedor
+    public class DatosDeContenedor: ConIndiceInicial, ConPrimerIndiceNumerico
     {
         //public bool esDeEsteTipo;
 
@@ -46,5 +46,28 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
 
         }
 
+        public virtual int getIndiceInicial() {
+            if (numeroCantidad!=null&&numerosIndividuales!=null) {
+                int r = numerosIndividuales.getIndiceInicial();
+                return r == -1 ? numeroCantidad.IndiceDeRepresentacionStr
+                    :(r< numeroCantidad.IndiceDeRepresentacionStr?r: numeroCantidad.IndiceDeRepresentacionStr);
+
+            }
+            if (numeroCantidad != null) {
+                return numeroCantidad.IndiceDeRepresentacionStr;
+            }
+            if (numerosIndividuales != null)
+            {
+                return numerosIndividuales.getIndiceInicial();
+            }
+            return -1;
+        }
+
+
+        public virtual int getPrimerIndiceDeNumero()
+        {
+            
+            return getIndiceInicial();
+        }
     }
 }

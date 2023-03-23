@@ -19,7 +19,9 @@ using ReneUtiles.Clases;
 using System.Text.RegularExpressions;
 using ReneUtiles;
 using ReneUtiles.Clases.Basicos.String;
+#pragma warning disable CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 using ReneUtiles.Clases.Multimedia.Series;
+#pragma warning restore CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 //using ReneUtiles.Clases.Multimedia.Series.Procesadores.Ignorar;
 using ReneUtiles.Clases.Multimedia.Series.Procesadores.Conjuntos;
 using ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos;
@@ -68,7 +70,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores
 		string patron_Temporada_NT_Capitulo_NC;
 		string patron_Capitulo_NC_Temporada_NT;
 		string patron_N_Union_N_Repetir;
+#pragma warning disable CS0169 // The field 'RecursosDePatronesDeSeries.patron_N_Continuacion_N_Repetir' is never used
 		string patron_N_Continuacion_N_Repetir;
+#pragma warning restore CS0169 // The field 'RecursosDePatronesDeSeries.patron_N_Continuacion_N_Repetir' is never used
 		string patron_Temporada_NT_Capitulo_N_Union_N_Repetir;
 		string patron_Capitulo_N_Union_N_Repetir_Temporada_NT;
 		string patron_Ova_N;

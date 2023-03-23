@@ -19,7 +19,9 @@ using ReneUtiles.Clases;
 using System.Text.RegularExpressions;
 using ReneUtiles;
 using ReneUtiles.Clases.Basicos.String;
+#pragma warning disable CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 using ReneUtiles.Clases.Multimedia.Series;
+#pragma warning restore CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 //using ReneUtiles.Clases.Multimedia.Series.Procesadores.Ignorar;
 using ReneUtiles.Clases.Multimedia.Series.Procesadores.Conjuntos;
 using ReneUtiles.Clases.Multimedia.Series.Procesadores;
@@ -39,7 +41,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
         {
             this.fechasEnNombre = new List<DatosDeFechaEnNombre>();
         }
+#pragma warning disable CS0108 // 'BuscadorDeFechasEnNombre.getRe()' hides inherited member 'ConsultorDeDatosEnNombre.getRe()'. Use the new keyword if hiding was intended.
         private RecursosDePatronesDeSeries getRe()
+#pragma warning restore CS0108 // 'BuscadorDeFechasEnNombre.getRe()' hides inherited member 'ConsultorDeDatosEnNombre.getRe()'. Use the new keyword if hiding was intended.
         {
             return this.pr.re;
         }

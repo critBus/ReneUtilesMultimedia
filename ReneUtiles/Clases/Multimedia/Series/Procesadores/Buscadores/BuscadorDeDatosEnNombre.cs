@@ -41,7 +41,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
             //tipoDeNombreDeSerie = TipoDeNombreDeSerie.DESCONOCIDO;
 
         }
+#pragma warning disable CS0108 // 'BuscadorDeDatosEnNombre.getRe()' hides inherited member 'ConsultorDeDatosEnNombre.getRe()'. Use the new keyword if hiding was intended.
         private RecursosDePatronesDeSeries getRe()
+#pragma warning restore CS0108 // 'BuscadorDeDatosEnNombre.getRe()' hides inherited member 'ConsultorDeDatosEnNombre.getRe()'. Use the new keyword if hiding was intended.
         {
             return this.pr.re;
         }
@@ -798,7 +800,9 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 
 
                 d.loEs = _esNombreNumericoSimple_ModificaContexto(numeroDeSerie, d.D, true);//indice,
+#pragma warning disable CS0472 // The result of the expression is always 'true' since a value of type 'bool' is never equal to 'null' of type 'bool?'
                 if (d.loEs != null)
+#pragma warning restore CS0472 // The result of the expression is always 'true' since a value of type 'bool' is never equal to 'null' of type 'bool?'
                 {
                     return d;
                 }

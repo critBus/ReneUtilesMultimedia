@@ -16,11 +16,15 @@ using ReneUtiles.Clases.Multimedia;
 using ReneUtiles.Clases.Multimedia.Relacionadores.Saltos;
 using ReneUtiles.Clases.Multimedia.Series.Contextos;
 using ReneUtiles.Clases.Multimedia.Series;
+#pragma warning disable CS0105 // The using directive for 'ReneUtiles.Clases' appeared previously in this namespace
 using ReneUtiles.Clases;
+#pragma warning restore CS0105 // The using directive for 'ReneUtiles.Clases' appeared previously in this namespace
 using System.Text.RegularExpressions;
 using ReneUtiles;
 using ReneUtiles.Clases.Basicos.String;
+#pragma warning disable CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 using ReneUtiles.Clases.Multimedia.Series;
+#pragma warning restore CS0105 // The using directive for 'ReneUtiles.Clases.Multimedia.Series' appeared previously in this namespace
 //using ReneUtiles.Clases.Multimedia.Series.Procesadores.Ignorar;
 using ReneUtiles.Clases.Multimedia.Series.Procesadores.Conjuntos;
 using ReneUtiles.Clases.Multimedia.Series.Procesadores;
