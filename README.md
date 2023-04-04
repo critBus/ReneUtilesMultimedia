@@ -1,5 +1,5 @@
 # ReneUtilesMultimedia
-Versión Incompleta:  Librería para la manipulación compleja de directorios relacionados con contenido multimedia, en especial  la gestión de nombres de series comunes. Se especializa en encontrar coincidencias entra varios directorios de series y la posterior organización en estructuras de orden Serie:Temporada:Capitulo 
+Librería para la manipulación compleja de directorios relacionados con contenido multimedia, en especial  la gestión de nombres de series comunes. Se especializa en encontrar coincidencias entra varios directorios de series y la posterior organización en estructuras de orden Serie:Temporada:Capitulo 
 
 
 La librería ReneUtilesMultimedia, que depende de ReneUtiles, ofrece una gran cantidad de funcionalidades para la gestión de contenido multimedia, convirtiéndola en una herramienta valiosa para todos aquellos programadores que trabajan en proyectos relacionados con series, películas y otros tipos de contenido multimedia.
