@@ -215,6 +215,7 @@ namespace ReneUtiles.Clases.Multimedia.Paquetes
 					, "Series Mangas [TX]/Series Anime [Finalizadas] [HD Dual Audio]"
 					, "Series Mangas [TX]/Series Anime [Finalizadas]"
                     , "Animados Mangas [####]/Series Mangas x Temporada"
+                    , "Animados Mangas [####]/Series Mangas [TX] Temporada [Cap Sueltos]"
                                                                 )
 			, TipoDeEtiquetaDeSerie.FINALIZADAS
 			

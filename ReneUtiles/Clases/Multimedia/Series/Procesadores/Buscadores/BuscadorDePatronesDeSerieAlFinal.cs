@@ -202,18 +202,61 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
             });
         }
 
+        private bool capturar_NC_CapituloOva_alPrincipio(Match mm)
+        {
+            Group gNC = this.pr.re.getGrupoNumeroOva(mm);
+            if (gNC.Success)
+            {
+                try
+                {
 
+
+                    int capitulo = inT_Grp(gNC);
+                    if ((!esIgnorarNumeroDetrasDe(numero: capitulo
+                                                  , indiceInicialDelNumero: gNC.Index))
+                        && (!pr.estaDentroDeFecha(gNC)))
+                    {
+                        capturar_CapituloOVA_NC(mm);
+
+                        return true;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    cwl("error cadena");
+
+                }
+            }
+            
+
+            return false;
+        }
         private bool capturar_NC_Capitulo_alPrincipio(Match mm)
         {
             Group gNC = this.pr.re.getGrupoNumeroCapitulo(mm);
-            int capitulo = inT_Grp(gNC);
-            if ((!esIgnorarNumeroDetrasDe(numero: capitulo
-                                          , indiceInicialDelNumero: gNC.Index))
-                && (!pr.estaDentroDeFecha(gNC)))
-            {
-                capturar_Capitulo_NC(mm);
-                return true;
+            if (gNC.Success) {
+                try
+                {
+
+
+                    int capitulo = inT_Grp(gNC);
+                    if ((!esIgnorarNumeroDetrasDe(numero: capitulo
+                                                  , indiceInicialDelNumero: gNC.Index))
+                        && (!pr.estaDentroDeFecha(gNC)))
+                    {
+                        capturar_Capitulo_NC(mm);
+                        return true;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    cwl("error cadena");
+                }
+
             }
+
             return false;
         }
         private bool capturar_Temporada_NT_alFinal(Match mm)
@@ -314,10 +357,17 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                             );
                         return getD();
                     }
-                    //Guardo la seccion sin ova pq va a ser usada despues
-                    //para comprobar en caso de que se cumpla con algun otro patron al final
-                    //que tal ves es solo un ova Ejem "ova 1.mp4"
-                    nombreSinOva = nombreSinOva.Substring(mOva.Length + I0);
+                    try {
+                        //Guardo la seccion sin ova pq va a ser usada despues
+                        //para comprobar en caso de que se cumpla con algun otro patron al final
+                        //que tal ves es solo un ova Ejem "ova 1.mp4"
+                        //nombreSinOva = nombreSinOva.Substring(mOva.Length + I0);
+                        nombreSinOva = nombre.Substring(mOva.Length + I0);
+                    } catch (Exception ex) {
+                        cwl("errror aqui 2");
+                        throw ex;
+                    }
+                    
                 }
 
             }//fin del if es para anime
@@ -741,20 +791,26 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
 
 
             //Es Carpeta y solo en mangas  
-            if (getConf().EsParaAnime && (getCtx().EsCarpeta || ((!getCtx().EsVideo) && (!getCtx().EsArchivo))))
+            if (getConf().EsParaAnime 
+                && (getCtx().EsCarpeta || ((!getCtx().EsVideo) && (!getCtx().EsArchivo))))
             {
 
                 //Seitokai Yakuindomo 2nd Season 13 - 1 OVA
-                mx = this.pr.re.Re_NT_IT_Temporada_NC_N_Ova.SSfReS.Match(nombre, I0);
+                mx = this.pr.re.Re_NT_IT_Temporada_NCan_N_Ova.SSfReS.Match(nombre, I0);
                 alEncontrarPatronContenedor_DeCapitulos_DeMismaTemporada(mx, () =>
                 {
                     capturar_Temporada_NT(mx);
 
                     Group gCnp = this.pr.re.getGrupoNumeroCantidadCapitulo(mx);
-                    getD().setIdentificacion_ConjuntoDeCapitulos_Numero(
-                    indiceDeRepresentacionStr_numeroCantidad: gCnp.Index
-                    , representacionStr_numeroCantidad: gCnp.ToString()
-                    );
+                    try {
+                        getD().setIdentificacion_ConjuntoDeCapitulos_Numero(
+                        indiceDeRepresentacionStr_numeroCantidad: gCnp.Index
+                        , representacionStr_numeroCantidad: gCnp.ToString()
+                        );
+                    } catch (Exception ex) {
+                        cwl("error cade 2");
+                    }
+                    
                     //getD().IndiceDeNumeroCantidadDeCapitulosQueContiene = gCnp.Index;//dm.IndiceNumeroFueraDeM + mm.Index;
                     //                                                                 //getD().CantidadDeCapitulosQueContiene = inT_Grp(gCnp);//dm.Numero;
                     //getD().CantidadDeCapitulosQueContieneStr = gCnp.ToString();
@@ -1256,23 +1312,27 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
                 mx = this.pr.re.Re_N_Ova.SSfReS.Match(nombre, I0);
                 alEncontrarPatron(mx, () =>
                 {
-                    if (capturar_NC_Capitulo_alPrincipio(mx))
-                    {
-                        
-                        Group gIO = this.pr.re.getGrupoIdentificadorOva(mx);
-
-                        getD().setEsOva();
-
-                        getD().setIdentificacionOva_TagOVA(
-                            indiceDeRepresentacionStr_tagOVA: gIO.Index
-                            ,representacionStr_tagOVA: gIO.ToString()
-                            );
-
-                        //getD().IndiceIdentificadorDeOVA = gIO.Index;
-                        //getD().EsOVA = true;
-                        //getD().IdentificadorDeOVAStr = gIO.ToString();
+                    if (capturar_NC_CapituloOva_alPrincipio(mx)) {
 
                     }
+
+                    //if (capturar_NC_Capitulo_alPrincipio(mx))
+                    //{
+                        
+                    //    Group gIO = this.pr.re.getGrupoIdentificadorOva(mx);
+
+                    //    getD().setEsOva();
+
+                    //    getD().setIdentificacionOva_TagOVA(
+                    //        indiceDeRepresentacionStr_tagOVA: gIO.Index
+                    //        ,representacionStr_tagOVA: gIO.ToString()
+                    //        );
+
+                    //    //getD().IndiceIdentificadorDeOVA = gIO.Index;
+                    //    //getD().EsOVA = true;
+                    //    //getD().IdentificadorDeOVAStr = gIO.ToString();
+
+                    //}
                     else
                     {
                         d = null;

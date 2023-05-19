@@ -1133,6 +1133,33 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 );
             this.identificadorCapitulo = di;
         }
+
+        public void setIdentificacion_CapituloOva_Etiqueta(
+            int indiceDeRepresentacionOvaStr
+            , string representacionOvaStr
+            )
+        {
+            DatosDeIdentificacionIndividualCapituloOva di = new DatosDeIdentificacionIndividualCapituloOva();
+                
+            di.etiquetaOva = new IdentificacionEnStr(
+                indiceDeRepresentacionStr: indiceDeRepresentacionOvaStr
+                , representacionStr: representacionOvaStr
+                );
+            this.identificadorCapituloOva = di;
+        }
+
+        public void setIdentificacion_CapituloOva_Numero(
+            int indiceDeRepresentacionOvaStr
+            , string representacionOvaStr
+            )
+        {
+            setIdentificacion_CapituloOva_Numero(new IdentificacionNumericaEnStr(
+                indiceDeRepresentacionStr: indiceDeRepresentacionOvaStr
+                , representacionStr: representacionOvaStr
+                ));
+
+        }
+
         public void setIdentificacion_Capitulo_Numero(
             int indiceDeRepresentacionStr
             , string representacionStr
@@ -1142,16 +1169,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
                 indiceDeRepresentacionStr: indiceDeRepresentacionStr
                 , representacionStr: representacionStr
                 ));
-            //DatosDeIdentificacionIndividual di = new DatosDeIdentificacionIndividual();
-            //if (this.identificadorCapitulo != null)
-            //{
-            //    di = this.identificadorCapitulo;
-            //}
-            //di.identificacionNumerica = new IdentificacionNumericaEnStr(
-            //    indiceDeRepresentacionStr: indiceDeRepresentacionStr
-            //    , representacionStr: representacionStr
-            //    );
-            //this.identificadorCapitulo = di;
+            
         }
         public void setIdentificacion_Capitulo_Numero(
            IdentificacionNumericaEnStr idn
@@ -1165,6 +1183,20 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             di.identificacionNumerica = idn;
             this.identificadorCapitulo = di;
         }
+
+        public void setIdentificacion_CapituloOva_Numero(
+           IdentificacionNumericaEnStr idn
+           )
+        {
+            DatosDeIdentificacionIndividualCapituloOva di = new DatosDeIdentificacionIndividualCapituloOva();
+            if (this.identificadorCapituloOva != null)
+            {
+                di = this.identificadorCapituloOva;
+            }
+            di.identificacionNumerica = idn;
+            this.identificadorCapituloOva = di;
+        }
+
         public void setEsContendedorDe_Capitulos_DeMismaSerie(bool loEs) {
             if (this.contendorDeCapitulos==null) {
                 this.ContendorDeCapitulos = new DatosDeIdentificacionColectivaCapitulos();
@@ -1217,7 +1249,7 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores.Datos
             if (this.contendorDeOvas != null) {
                 this.contendorDeOvas.etiquetaOva = et;
             } else if (this.identificadorCapituloOva != null) {
-                this.contendorDeOvas.etiquetaOva = et;
+                this.identificadorCapituloOva.etiquetaOva = et;
             }
             
         }

@@ -85,6 +85,53 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores.Buscadores
             return false;
         }
 
+        protected void capturar_CapituloOVA_NC(Match mm, int iNumeroInicial = 0)
+        {
+            Group gIC = this.pr.re.getGrupoIdentificadorOva(mm);
+            Group gNC = this.pr.re.getGrupoNumeroOva(mm);
+            if (gIC.Success)
+            {
+                d.setIdentificacion_CapituloOva_Etiqueta(
+                     indiceDeRepresentacionOvaStr: gIC.Index
+                    , representacionOvaStr: gIC.ToString()
+                    );
+
+
+                //            d.IndiceIdentificadorCapitulo = gIC.Index;
+                //d.IdentificadorCapituloStr = gIC.ToString(); 
+            }
+
+            Group gU = this.pr.re.getGrupoUnion(mm);
+            if (gNC.Success)
+            {
+                if (gU.Success)
+                {
+                    CaptureCollection cl = gNC.Captures;
+
+                    d.setIdentificacion_CapituloOva_Numero(
+                     indiceDeRepresentacionOvaStr: cl[iNumeroInicial].Index
+                    , representacionOvaStr: cl[iNumeroInicial].ToString()
+                    );
+
+                    //d.CapituloStr = cl[iNumeroInicial].ToString();
+                    //d.IndiceNumeroCapitulo = cl[iNumeroInicial].Index;
+                }
+                else
+                {
+                    d.setIdentificacion_CapituloOva_Numero(
+                     indiceDeRepresentacionOvaStr: gNC.Index
+                    , representacionOvaStr: gNC.ToString()
+                    );
+
+                    //d.IndiceNumeroCapitulo = gNC.Index;
+                    //d.CapituloStr = gNC.ToString();
+                }
+            }
+
+            
+
+        }
+
         protected void capturar_Capitulo_NC(Match mm, int iNumeroInicial = 0)
         {
             Group gIC = this.pr.re.getGrupoIdentificadorCapitulo(mm);

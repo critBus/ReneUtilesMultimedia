@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Rene Lazaro Collado Arteaga</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">GPL-3.0-or-later</license>
+    <!-- <icon>icon.png</icon> -->
+    <projectUrl>https://github.com/critBus/ReneUtilesMultimedia</projectUrl>
+    <description>Librería en C# para manipular contenido multimedia en especial la relación de coincidencia entre nombres de series y el vínculo a sus respectivos capítulos </description>
+    <releaseNotes></releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>Utility Multimedia Series Paquete</tags>
+  </metadata>
+</package>

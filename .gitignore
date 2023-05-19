@@ -11,3 +11,5 @@ dllsR
 /*/libs
 /*/dllsR
 
+obj/*
+obj/Debug/ReneUtilesMultimedia.csprojResolveAssemblyReference.cache

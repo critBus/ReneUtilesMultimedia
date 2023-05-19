@@ -92,7 +92,8 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores
 		string patron_NT_IT_Temporada_Capitulo_NC;
 		string patron_NT_IT_Temporada_Capitulo_N_Union_N_Repetir;
 		string patron_NT_IT_Temporada_NC_N_Ova;
-		string patron_N_Ova;
+        string patron_NT_IT_Temporada_NCan_N_Ova;
+        string patron_N_Ova;
 		string patron_NT_IT_Temporada_NC;
 		string patron_Cor_Nc_Mas_Nova_Cor;
 		string patron_Cor_Nc_Cor;
@@ -172,7 +173,8 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores
 		public PatronRegex Re_NT_IT_Temporada_Capitulo_NC;
 		public PatronRegex Re_NT_IT_Temporada_Capitulo_N_Union_N_Repetir;
 		public PatronRegex Re_NT_IT_Temporada_NC_N_Ova;
-		public PatronRegex Re_N_Ova;
+        public PatronRegex Re_NT_IT_Temporada_NCan_N_Ova;
+        public PatronRegex Re_N_Ova;
 		public PatronRegex Re_NT_IT_Temporada_NC;
 		public PatronRegex Re_Cor_Nc_Mas_Nova_Cor;
 		public PatronRegex Re_Cor_Nc_Cor;
@@ -494,14 +496,26 @@ namespace ReneUtiles.Clases.Multimedia.Series.Procesadores
 				patron_NT_IT_Temporada +
 			ConstantesExprecionesRegulares.separaciones_UnoAlMenos +
 			grupoNombrado(KEY_NUMERO_CAPITULO, ConstantesExprecionesRegulares.numeros_4max);
+
 			Re_NT_IT_Temporada_NC = new PatronRegex(patron_NT_IT_Temporada_NC);
 			
 			patron_NT_IT_Temporada_NC_N_Ova = patron_NT_IT_Temporada_NC +
 			ConstantesExprecionesRegulares.separaciones_UnoAlMenos +
 			patron_N_Ova;
 			Re_NT_IT_Temporada_NC_N_Ova = new PatronRegex(patron_NT_IT_Temporada_NC_N_Ova);
-			
-			patron_Cor_Nc_Mas_Nova_Cor =
+
+
+            patron_NT_IT_Temporada_NCan_N_Ova =
+                patron_NT_IT_Temporada +
+            ConstantesExprecionesRegulares.separaciones_UnoAlMenos +
+            grupoNombrado(KEY_NUMERO_CANTIDAD_CAPITULOS, ConstantesExprecionesRegulares.numeros_4max)
+            + ConstantesExprecionesRegulares.separaciones_UnoAlMenos +
+            patron_N_Ova;
+            ;
+            Re_NT_IT_Temporada_NCan_N_Ova = new PatronRegex(patron_NT_IT_Temporada_NCan_N_Ova);
+            
+
+            patron_Cor_Nc_Mas_Nova_Cor =
 				ConstantesExprecionesRegulares.envolturaInicial +
 			ConstantesExprecionesRegulares.separaciones +
 			grupoNombrado(KEY_NUMERO_CANTIDAD_CAPITULOS, ConstantesExprecionesRegulares.numeros_4max) +
